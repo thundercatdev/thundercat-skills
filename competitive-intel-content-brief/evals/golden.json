@@ -1,0 +1,11 @@
+{
+  "id": "competitive_intel_content_brief",
+  "skill_id": "competitive-intel-content-brief",
+  "prompt_fixture": {
+    "competitor_name": "Acme Corp",
+    "content_channel": "linkedin",
+    "time_window": "7d"
+  },
+  "required_substrings": ["Acme Corp", "signal", "brief"],
+  "required_artifacts": ["signal_table", "content_brief", "social_draft"]
+}

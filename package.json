@@ -1,0 +1,9 @@
+{
+  "name": "engram-skills",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Engram GTM skill packages for Skill Hub",
+  "scripts": {
+    "validate": "python scripts/validate.py"
+  }
+}
