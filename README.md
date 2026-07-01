@@ -11,7 +11,7 @@ GTM skill packages for [Skill Hub](../../docs/skill-hub-v1.md). Each published s
 ```
 
 **Format spec:** [docs/engram-skill-format.md](../../docs/engram-skill-format.md) (monorepo)  
-**Split repo:** `tryvinci/engram-skills` (synced from `apps/engram-skills/` on monorepo `main`)
+**Split repo:** `engramdev/engram-skills` (synced from `apps/engram-skills/`; branch mirrors monorepo — `main` on merge, feature branches keep their name)
 
 ## Published skills (manifest lock)
 
