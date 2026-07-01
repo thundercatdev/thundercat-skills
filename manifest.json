@@ -1,0 +1,12 @@
+{
+  "schema_version": "1",
+  "published": [
+    {
+      "id": "competitive-intel-content-brief",
+      "status": "live",
+      "default_enabled": true,
+      "composite_of": ["market-signals", "content-linkedin"]
+    }
+  ],
+  "backlog_ref": "references/gtm-flows-backlog.md"
+}
