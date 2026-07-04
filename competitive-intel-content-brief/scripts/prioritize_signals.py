@@ -14,7 +14,15 @@ _ORDER = {'P1': 0, 'P2': 1, 'P3': 2}
 
 
 def prioritize(rows: list[dict[str, str]]) -> list[dict[str, str]]:
-    """Sort signal rows by priority then signal text."""
+    """Sort signal rows by priority then signal text.
+
+    Args:
+        rows: Signal rows, each expected to have "priority" (P1/P2/P3) and
+            "signal" keys.
+
+    Returns:
+        The input rows sorted by priority tier (P1 > P2 > P3), then signal text.
+    """
     return sorted(
         rows,
         key=lambda row: (_ORDER.get(str(row.get('priority') or 'P3').upper(), 9), str(row.get('signal') or '')),
@@ -22,6 +30,11 @@ def prioritize(rows: list[dict[str, str]]) -> list[dict[str, str]]:
 
 
 def main() -> int:
+    """CLI entrypoint: read a JSON array of signal rows from argv and print them prioritized.
+
+    Returns:
+        Process exit code (0 on success).
+    """
     raw = sys.argv[1] if len(sys.argv) > 1 else '[]'
     rows = json.loads(raw)
     if not isinstance(rows, list):
