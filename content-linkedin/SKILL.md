@@ -33,6 +33,7 @@ metadata:
           label: Author role
           type: text
           required: false
+          default: "Founder / AE"
           placeholder: "e.g. Founder / AE"
         - key: time_window
           label: Time window

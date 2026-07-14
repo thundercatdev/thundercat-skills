@@ -34,6 +34,7 @@ metadata:
           label: Channels focus
           type: text
           required: false
+          default: "Facebook Groups, Reddit, Google Business, Yelp"
           placeholder: "e.g. Facebook groups, Reddit, Yelp"
         - key: time_window
           label: Time window

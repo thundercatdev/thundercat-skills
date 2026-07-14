@@ -33,6 +33,7 @@ metadata:
           label: Communities
           type: text
           required: false
+          default: "HN, GitHub, Product Hunt"
           placeholder: "HN, GitHub, Product Hunt"
         - key: time_window
           label: Time window

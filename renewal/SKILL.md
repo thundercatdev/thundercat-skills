@@ -33,6 +33,7 @@ metadata:
           label: Renewal date
           type: text
           required: false
+          default: "upcoming"
     orchestration:
       tools:
         - id: web_research

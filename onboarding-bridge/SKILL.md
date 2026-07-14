@@ -33,6 +33,7 @@ metadata:
           label: Close date (optional)
           type: text
           required: false
+          default: "recently"
     orchestration:
       tools:
         - id: memory

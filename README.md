@@ -66,3 +66,12 @@ Copies `manifest.json` + published skill dirs → `apps/engram-chat/skill_packag
 2. Run `python scripts/validate.py` (without manifest entry = draft only).
 3. Add to `manifest.json` → `published` when ready to ship.
 4. Re-run validate + sync script; dogfood via `/dashboard/skills`.
+
+## Bug notes (Skill Hub packages)
+
+| Bug | Frequency | Fix |
+|-----|-----------|-----|
+| Optional config (`communities`, `channels`, siblings) lacked `default` → blank `{{placeholders}}` omitted scan targets | First occurrence in GTM package review (Jul 2026) | Add representative string defaults |
+| Composite `competitive-intel-content-brief` omitted `battle_card` vs atomic `market-signals` | First occurrence in package review | Add artifact + eval/golden |
+| Outbound `sequence_length` unquoted YAML ints broke frontend `value.trim()` | First occurrence in package review | Quote YAML strings + coerce in `buildSkillPrompt` |
+| Launch `blog`/`email` channel vs always-`social_media_posts` drafts | First occurrence in package review | Channel-matched artifacts (`launch_drafts` / `launch_longform`) |

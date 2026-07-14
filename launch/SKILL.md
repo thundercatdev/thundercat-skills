@@ -34,6 +34,7 @@ metadata:
           label: Launch date
           type: text
           required: false
+          default: "TBD"
         - key: primary_channel
           label: Primary channel
           type: select
@@ -78,7 +79,11 @@ metadata:
         - id: launch_drafts
           type: engram_content
           content_type: social_media_posts
-          required: true
+          required: false
+        - id: launch_longform
+          type: markdown_sections
+          sections: [title, body]
+          required: false
         - id: battle_card
           type: markdown_sections
           sections: [claim_ground, competitor_reframe]
@@ -87,9 +92,10 @@ metadata:
       template: >-
         Orchestrate GTM for launch "{{launch_name}}" (target: {{launch_date}}).
         Align one narrative across functions with owners; draft {{primary_channel}}
-        assets in brand voice (rewrite per channel — blog ≠ tweet); refresh claim
-        ground vs competitor narratives; define post-launch success as sales
-        mentions + customer usage, not vanity views.
+        assets in brand voice (rewrite per channel — blog ≠ tweet). For linkedin/x
+        emit launch_drafts as social_media_posts; for blog/email emit launch_longform
+        as markdown_sections. Refresh claim ground vs competitor narratives; define
+        post-launch success as sales mentions + customer usage, not vanity views.
     eval:
       id: launch
       required_substrings: [Workspace memory sync, narrative, channel]
@@ -117,12 +123,14 @@ Narrative consistency under pressure — then prove the launch worked.
 
 ## Phase 2 — Assets & reframe
 
-1. Voice-calibrated primary-channel drafts (channel-native rewrite).
+1. Voice-calibrated primary-channel drafts (channel-native rewrite):
+   - `linkedin` / `x` → emit **launch_drafts** via `<engram_content type="social_media_posts" />`.
+   - `blog` / `email` → emit **launch_longform** (title + body markdown); do not force social_media_posts.
 2. Battle card: claim ground + competitor reframe.
 3. Define success metrics (sales language + adoption).
-4. Emit **launch_drafts** + **battle_card**.
+4. Emit the channel-matched draft artifact + **battle_card**.
 
 ## Constraints
 
 - Blog post ≠ tweet with different length; rewrite per channel.
-- Prefer `<engram_content type="social_media_posts" />` for social drafts when applicable.
+- Match artifact type to `primary_channel` — social keeps LinkedIn/X export cards; longform stays markdown.

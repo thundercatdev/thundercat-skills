@@ -72,6 +72,10 @@ metadata:
           type: structured_results
           title: Prioritized market signals
           required: true
+        - id: battle_card
+          type: markdown_sections
+          sections: [narrative, weakness, reframe]
+          required: true
         - id: content_brief
           type: markdown_sections
           sections: [positioning, angle, proof_points, cta]
@@ -89,7 +93,7 @@ metadata:
     eval:
       id: competitive_intel_content_brief
       required_substrings: [Acme Corp, P1, brief]
-      required_artifacts: [signal_table, content_brief, social_draft]
+      required_artifacts: [signal_table, battle_card, content_brief, social_draft]
 ---
 
 # Competitive intel → content brief
@@ -112,11 +116,12 @@ Composite GTM workflow: **market-signals** → **content-linkedin**.
 1. Scan competitor hiring, pricing, positioning, and review drift in the time window.
 2. Reduce to **3–5 prioritized signals** with source, implication, action, priority.
 3. Emit **signal_table** before narrative (see `references/signal-rubric.md`).
-4. Optionally run `scripts/prioritize_signals.py` to rank raw signal rows.
+4. Emit **battle_card** with narrative, weakness, and reframe (same contract as `market-signals`).
+5. Optionally run `scripts/prioritize_signals.py` to rank raw signal rows.
 
 ## Phase 2 — Content brief
 
-1. Reframe the battle card from the top signal.
+1. Reframe the battle card from the top signal if Phase 1 did not already.
 2. Draft brief: positioning, angle, proof points, CTA — calibrated to brand memory.
 3. Draft the social post for the configured channel; use `<engram_content type="social_media_posts" />` when applicable.
 

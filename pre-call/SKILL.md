@@ -34,6 +34,7 @@ metadata:
           label: Call purpose
           type: text
           required: false
+          default: "discovery"
     orchestration:
       tools:
         - id: web_research

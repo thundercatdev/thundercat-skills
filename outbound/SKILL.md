@@ -37,13 +37,13 @@ metadata:
         - key: sequence_length
           label: Touches
           type: select
-          default: 4
+          default: "4"
           options:
-            - value: 3
+            - value: "3"
               label: 3 touches
-            - value: 4
+            - value: "4"
               label: 4 touches
-            - value: 5
+            - value: "5"
               label: 5 touches
     orchestration:
       tools:
