@@ -1,0 +1,16 @@
+{
+  "id": "onboarding_bridge",
+  "skill_id": "onboarding-bridge",
+  "prompt_fixture": {
+    "account_name": "Northwind Labs",
+    "close_date": "2026-06-15"
+  },
+  "required_substrings": [
+    "handoff",
+    "success",
+    "stakeholder"
+  ],
+  "required_artifacts": [
+    "onboarding_brief"
+  ]
+}

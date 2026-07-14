@@ -1,0 +1,19 @@
+{
+  "id": "outbound",
+  "skill_id": "outbound",
+  "prompt_fixture": {
+    "prospect_name": "Jordan Lee at Northwind",
+    "qualifying_signal": "Hired 3 marketing roles in 2 weeks",
+    "sequence_length": "4"
+  },
+  "required_substrings": [
+    "wedge",
+    "sequence",
+    "touch"
+  ],
+  "required_artifacts": [
+    "research_wedge",
+    "sequence",
+    "hooks"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "id": "positioning",
+  "skill_id": "positioning",
+  "prompt_fixture": {
+    "claimed_positioning": "GTM infrastructure for AI-native teams",
+    "time_window": "7d"
+  },
+  "required_substrings": [
+    "positioning",
+    "gap",
+    "sentiment"
+  ],
+  "required_artifacts": [
+    "positioning_doc",
+    "sentiment_table"
+  ]
+}

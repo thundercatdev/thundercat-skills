@@ -1,0 +1,18 @@
+{
+  "id": "icp_linkedin",
+  "skill_id": "icp-linkedin",
+  "prompt_fixture": {
+    "icp_description": "B2B SaaS founders selling to mid-market ops teams",
+    "signal_focus": "hiring",
+    "time_window": "7d"
+  },
+  "required_substrings": [
+    "lead",
+    "fit",
+    "hook"
+  ],
+  "required_artifacts": [
+    "lead_table",
+    "hooks"
+  ]
+}

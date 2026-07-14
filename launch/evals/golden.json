@@ -1,0 +1,19 @@
+{
+  "id": "launch",
+  "skill_id": "launch",
+  "prompt_fixture": {
+    "launch_name": "Workspace memory sync",
+    "launch_date": "2026-08-01",
+    "primary_channel": "linkedin"
+  },
+  "required_substrings": [
+    "narrative",
+    "launch",
+    "channel"
+  ],
+  "required_artifacts": [
+    "launch_plan",
+    "launch_drafts",
+    "battle_card"
+  ]
+}

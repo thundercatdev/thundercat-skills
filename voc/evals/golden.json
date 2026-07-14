@@ -1,0 +1,18 @@
+{
+  "id": "voc",
+  "skill_id": "voc",
+  "prompt_fixture": {
+    "feedback_scope": "Support tickets + NPS",
+    "time_window": "7d"
+  },
+  "required_substrings": [
+    "theme",
+    "quote",
+    "messaging"
+  ],
+  "required_artifacts": [
+    "theme_table",
+    "product_brief",
+    "messaging_updates"
+  ]
+}

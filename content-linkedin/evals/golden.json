@@ -1,0 +1,19 @@
+{
+  "id": "content_linkedin",
+  "skill_id": "content-linkedin",
+  "prompt_fixture": {
+    "topic_or_angle": "context loss across GTM handoffs",
+    "author_role": "Founder",
+    "time_window": "7d"
+  },
+  "required_substrings": [
+    "brief",
+    "draft",
+    "voice"
+  ],
+  "required_artifacts": [
+    "content_brief",
+    "social_draft",
+    "conversation_targets"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "pre_call",
+  "skill_id": "pre-call",
+  "prompt_fixture": {
+    "account_or_contact": "Northwind Labs",
+    "call_purpose": "Discovery follow-up"
+  },
+  "required_substrings": [
+    "relationship",
+    "play",
+    "stakeholder"
+  ],
+  "required_artifacts": [
+    "pre_call_brief"
+  ]
+}

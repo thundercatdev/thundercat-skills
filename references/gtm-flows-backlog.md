@@ -3,7 +3,7 @@
 **Source:** [tryvinci/engram-demos](https://github.com/tryvinci/engram-demos) · `lib/skill-demos/gtm-flows.ts`  
 **Purpose:** Forward-looking catalog for Skill Hub package migration. Not published to the hub until each flow becomes a locked `SKILL.md` package in `manifest.json`.
 
-**Live today:** `competitive-intel-content-brief` (composite of `market-signals` + `content-linkedin`).
+**Live today:** All 13 workflow slugs below are published as Skill Hub packages (plus composite `competitive-intel-content-brief` = `market-signals` + `content-linkedin`). This file remains the atomic-skill decomposition reference.
 
 ---
 

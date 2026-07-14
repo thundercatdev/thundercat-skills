@@ -5,7 +5,80 @@
       "id": "competitive-intel-content-brief",
       "status": "live",
       "default_enabled": true,
-      "composite_of": ["market-signals", "content-linkedin"]
+      "composite_of": [
+        "market-signals",
+        "content-linkedin"
+      ]
+    },
+    {
+      "id": "icp-community",
+      "status": "live",
+      "default_enabled": false
+    },
+    {
+      "id": "icp-linkedin",
+      "status": "live",
+      "default_enabled": false
+    },
+    {
+      "id": "icp-developer",
+      "status": "live",
+      "default_enabled": false
+    },
+    {
+      "id": "content-linkedin",
+      "status": "live",
+      "default_enabled": false
+    },
+    {
+      "id": "content-x",
+      "status": "live",
+      "default_enabled": false
+    },
+    {
+      "id": "positioning",
+      "status": "live",
+      "default_enabled": false
+    },
+    {
+      "id": "market-signals",
+      "status": "live",
+      "default_enabled": false
+    },
+    {
+      "id": "outbound",
+      "status": "live",
+      "default_enabled": false
+    },
+    {
+      "id": "pre-call",
+      "status": "live",
+      "default_enabled": false
+    },
+    {
+      "id": "pipeline",
+      "status": "live",
+      "default_enabled": false
+    },
+    {
+      "id": "launch",
+      "status": "live",
+      "default_enabled": false
+    },
+    {
+      "id": "voc",
+      "status": "live",
+      "default_enabled": false
+    },
+    {
+      "id": "onboarding-bridge",
+      "status": "live",
+      "default_enabled": false
+    },
+    {
+      "id": "renewal",
+      "status": "live",
+      "default_enabled": false
     }
   ],
   "backlog_ref": "references/gtm-flows-backlog.md"
