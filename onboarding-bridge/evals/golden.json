@@ -5,12 +5,6 @@
     "account_name": "Northwind Labs",
     "close_date": "2026-06-15"
   },
-  "required_substrings": [
-    "handoff",
-    "success",
-    "stakeholder"
-  ],
-  "required_artifacts": [
-    "onboarding_brief"
-  ]
+  "required_substrings": ["Northwind Labs", "success", "landmine"],
+  "required_artifacts": ["onboarding_brief"]
 }

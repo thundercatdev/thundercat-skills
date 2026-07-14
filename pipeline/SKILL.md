@@ -1,7 +1,10 @@
 ---
 name: pipeline
 description: >-
-  Rank deals by close likelihood using behavioral and champion signals, with a specific next action per deal.
+  Rank deals by close likelihood using behavioral and champion signals, with one
+  concrete next action per deal (never "follow up"). Use for weekly pipeline
+  focus. Do not use for a single-call brief (pre-call), first-touch sequences
+  (outbound), or renewal health (renewal).
 metadata:
   engram:
     schema_version: "1"
@@ -9,7 +12,7 @@ metadata:
     title: Pipeline scoring & prioritization
     lane: sales
     status: live
-    version: 1.0.0
+    version: 1.1.0
     author: engram
     catalog:
       outcome: >-
@@ -58,29 +61,38 @@ metadata:
           required: true
     prompt:
       template: >-
-        Score and prioritize {{pipeline_scope}} over {{time_window}}. Weight behavioral signals and champion activity (including silence), explain velocity stalls, and recommend a concrete next action per deal — not "follow up".
+        Score and prioritize "{{pipeline_scope}}" over {{time_window}}. Weight
+        behavioral signals (pricing/page depth ≫ opens) and champion activity
+        including silence; explain velocity stalls; recommend one concrete next
+        action per deal — never "follow up".
     eval:
       id: pipeline
-      required_substrings: ["rank", "action", "champion"]
-      required_artifacts: ["ranked_pipeline", "next_actions"]
+      required_substrings: ["$20k", champion, action]
+      required_artifacts: [ranked_pipeline, next_actions]
 ---
 
 # Pipeline scoring & prioritization
 
-Likelihood ranking with social/leading indicators and specific next actions.
+Likelihood ranking with leading indicators and specific next actions.
 
 ## When to use
 
 - Weekly pipeline review needs focus, not a flat stage list.
 - Champion silence is a first-class risk signal.
 
+## When not to use
+
+- Single upcoming call prep → `pre-call`.
+- Renewal / expansion health → `renewal`.
+
 ## Phases
 
-1. Behavioral signal scorer (pricing visits ≫ opens).
-2. Champion activity tracker — silence matters.
-3. Deal velocity analyzer — slow + likely reason.
-4. Next action recommender — specific artifact/angle, not "follow up".
+1. Score behavioral signals (pricing visits ≫ email opens).
+2. Track champion activity — silence matters.
+3. Analyze velocity stalls with likely reason.
+4. Recommend next actions per `references/next-action-quality.md`.
+5. Emit **ranked_pipeline** + **next_actions**.
 
 ## Constraints
 
-- Each deal gets one ranked priority and one concrete action.
+- Each deal: one ranked priority and one concrete action.

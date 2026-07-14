@@ -1,8 +1,11 @@
 ---
 name: competitive-intel-content-brief
 description: >-
-  Cut competitor noise to prioritized signals, refresh the battle card reframe,
-  then produce a voice-calibrated content brief and channel draft.
+  Cut competitor noise to prioritized signals, refresh the battle-card reframe,
+  then produce a voice-calibrated content brief and channel draft. Use when a
+  named competitor moved and you need signal + draft in one run. Do not use for
+  ICP lead hunting (icp-*), standalone positioning docs (positioning), or X-only
+  reply workflows (content-x) without a competitor signal.
 metadata:
   engram:
     schema_version: "1"
@@ -10,7 +13,7 @@ metadata:
     title: Competitive intel → content brief
     lane: marketing
     status: live
-    version: 1.0.0
+    version: 1.1.0
     author: engram
     catalog:
       outcome: Prioritized competitor signals plus a voice-calibrated content brief and draft post.
@@ -79,11 +82,13 @@ metadata:
           required: true
     prompt:
       template: >-
-        Competitor {{competitor_name}} had moves this week — cut the noise to 3–5 actionable signals,
-        update the battle card reframe, then give me a content brief and {{content_channel}} draft in my voice.
+        Competitor {{competitor_name}} had moves this week — cut the noise to 3–5
+        actionable signals (source, implication, action, P1–P3), update the battle
+        card reframe, then give me a content brief and {{content_channel}} draft in
+        my voice.
     eval:
       id: competitive_intel_content_brief
-      required_substrings: [Acme Corp, signal, brief]
+      required_substrings: [Acme Corp, P1, brief]
       required_artifacts: [signal_table, content_brief, social_draft]
 ---
 
@@ -93,24 +98,30 @@ Composite GTM workflow: **market-signals** → **content-linkedin**.
 
 ## When to use
 
-- A named competitor had visible moves this week and you need actionable signal, not noise.
-- You want a battle card reframe plus a voice-calibrated content brief and channel draft in one run.
+- A named competitor had visible moves and you need actionable signal plus a draft.
+- You want battle-card reframe and a voice-calibrated brief in one run.
+
+## When not to use
+
+- Signals only (no draft) → `market-signals`.
+- Draft only (no competitor triage) → `content-linkedin` / `content-x`.
+- ICP leads / hooks → `icp-*`.
 
 ## Phase 1 — Market signals
 
-1. Scan competitor hiring, pricing, positioning, and review drift in the configured time window.
-2. Reduce raw events to **3–5 prioritized signals** with source, implication, recommended action, and priority.
-3. Emit a **structured signal table** before narrative summary (see `references/signal-rubric.md`).
+1. Scan competitor hiring, pricing, positioning, and review drift in the time window.
+2. Reduce to **3–5 prioritized signals** with source, implication, action, priority.
+3. Emit **signal_table** before narrative (see `references/signal-rubric.md`).
 4. Optionally run `scripts/prioritize_signals.py` to rank raw signal rows.
 
 ## Phase 2 — Content brief
 
 1. Reframe the battle card from the top signal.
-2. Draft a content brief with positioning, angle, proof points, and CTA — calibrated to brand memory.
-3. Draft the social post for the configured channel; use `<engram_content type="social_media_posts" />` for the draft when applicable.
+2. Draft brief: positioning, angle, proof points, CTA — calibrated to brand memory.
+3. Draft the social post for the configured channel; use `<engram_content type="social_media_posts" />` when applicable.
 
 ## Constraints
 
-- Use only tools enabled for this run (see orchestration allowlist).
+- Use only tools enabled for this run.
 - Do not recap internal steps; deliver **exportable artifacts**.
 - Prefer customer and market language over generic marketing speak.

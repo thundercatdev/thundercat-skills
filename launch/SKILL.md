@@ -1,7 +1,11 @@
 ---
 name: launch
 description: >-
-  Coordinate launch narrative across channels, draft voice-calibrated assets, battle-card reframes, and post-launch success metrics.
+  Coordinate a product/feature launch narrative across channels, draft
+  voice-calibrated primary-channel assets, refresh competitive reframe, and
+  define post-launch success beyond vanity views. Use for multi-function
+  launches. Do not use for steady-state LinkedIn/X posting (content-*), sole
+  competitor monitoring (market-signals), or VoC clustering (voc).
 metadata:
   engram:
     schema_version: "1"
@@ -9,7 +13,7 @@ metadata:
     title: Product launch GTM orchestration
     lane: sales
     status: live
-    version: 1.0.0
+    version: 1.1.0
     author: engram
     catalog:
       outcome: >-
@@ -78,14 +82,18 @@ metadata:
         - id: battle_card
           type: markdown_sections
           sections: [claim_ground, competitor_reframe]
-          required: false
+          required: true
     prompt:
       template: >-
-        Orchestrate GTM for launch "{{launch_name}}" (target: {{launch_date}}). Align narrative across functions, draft {{primary_channel}} assets in brand voice, refresh competitive reframe, and define post-launch success (sales mentions + usage — not vanity views).
+        Orchestrate GTM for launch "{{launch_name}}" (target: {{launch_date}}).
+        Align one narrative across functions with owners; draft {{primary_channel}}
+        assets in brand voice (rewrite per channel — blog ≠ tweet); refresh claim
+        ground vs competitor narratives; define post-launch success as sales
+        mentions + customer usage, not vanity views.
     eval:
       id: launch
-      required_substrings: ["narrative", "launch", "channel"]
-      required_artifacts: ["launch_plan", "launch_drafts", "battle_card"]
+      required_substrings: [Workspace memory sync, narrative, channel]
+      required_artifacts: [launch_plan, launch_drafts, battle_card]
 ---
 
 # Product launch GTM orchestration
@@ -97,13 +105,24 @@ Narrative consistency under pressure — then prove the launch worked.
 - Multi-function launches needing one narrative and channel-specific drafts.
 - Post-launch: sales mentions + customer usage beat blog views.
 
-## Phases
+## When not to use
 
-1. Launch coordinator — owners, narrative, channel plan.
-2. Voice-calibrated drafter (launch mode) — channel-native assets.
-3. Battle card (launch mode) — claim ground vs competitor narratives.
-4. Performance tracker — sales language + adoption signals.
+- Ongoing LinkedIn/X content engine → `content-linkedin` / `content-x`.
+- Competitor signal triage without a launch → `market-signals`.
+
+## Phase 1 — Coordinate
+
+1. Lock narrative, channel plan, and owners.
+2. Emit **launch_plan**.
+
+## Phase 2 — Assets & reframe
+
+1. Voice-calibrated primary-channel drafts (channel-native rewrite).
+2. Battle card: claim ground + competitor reframe.
+3. Define success metrics (sales language + adoption).
+4. Emit **launch_drafts** + **battle_card**.
 
 ## Constraints
 
 - Blog post ≠ tweet with different length; rewrite per channel.
+- Prefer `<engram_content type="social_media_posts" />` for social drafts when applicable.

@@ -1,7 +1,11 @@
 ---
 name: voc
 description: >-
-  Aggregate feedback into pain/feature clusters, extract customer language, brief product, and recommend messaging updates.
+  Aggregate customer feedback into pain/feature clusters weighted by value×recency,
+  extract verbatim language, brief product, and recommend messaging updates. Use
+  when support/NPS/calls/G2 language is not flowing into marketing or PM. Do not
+  use for living positioning docs (positioning), competitor moves (market-signals),
+  or renewal health (renewal).
 metadata:
   engram:
     schema_version: "1"
@@ -9,7 +13,7 @@ metadata:
     title: Voice of customer → GTM feedback loop
     lane: cross_functional
     status: live
-    version: 1.0.0
+    version: 1.1.0
     author: engram
     catalog:
       outcome: >-
@@ -74,11 +78,15 @@ metadata:
           required: true
     prompt:
       template: >-
-        Run a VoC loop for {{feedback_scope}} over {{time_window}}. Cluster pains/features weighted by customer value (not just frequency), extract verbatim language, produce a PM-ready brief, and recommend homepage/messaging updates.
+        Run a VoC loop for "{{feedback_scope}}" over {{time_window}}. Cluster
+        pains/features by value × recency × severity (not raw frequency); keep
+        verbatim quotes; produce a PM-ready brief (top 3 themes, customers,
+        strongest quote); recommend homepage/messaging updates as current →
+        customer language → replace.
     eval:
       id: voc
-      required_substrings: ["theme", "quote", "messaging"]
-      required_artifacts: ["theme_table", "product_brief", "messaging_updates"]
+      required_substrings: [NPS, theme, quote]
+      required_artifacts: [theme_table, product_brief, messaging_updates]
 ---
 
 # Voice of customer → GTM feedback loop
@@ -88,15 +96,21 @@ Customer words into marketing copy and product signal.
 ## When to use
 
 - Support, NPS, calls, and G2 contain language marketing/product are ignoring.
-- Enterprise ask weight > freemium volume.
+- Enterprise ask weight should beat freemium volume.
+
+## When not to use
+
+- Claimed-vs-heard positioning document → `positioning`.
+- Renewal expansion/churn play → `renewal`.
 
 ## Phases
 
-1. Feedback aggregator.
-2. Pain & feature cluster analyzer (value × recency).
-3. Customer language extractor.
-4. Product signal brief (top 3 themes, customers, strongest quote).
+1. Aggregate feedback from the configured scope.
+2. Cluster per `references/cluster-weighting.md`.
+3. Extract verbatim customer language.
+4. PM brief: top 3 themes, named customers, strongest quote.
 5. Messaging update recommender.
+6. Emit **theme_table**, **product_brief**, **messaging_updates**.
 
 ## Constraints
 

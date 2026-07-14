@@ -1,7 +1,11 @@
 ---
 name: outbound
 description: >-
-  Research a prospect wedge, draft a multi-touch sequence that references the qualifying signal, and reuse real customer language.
+  Research a prospect wedge and draft a multi-touch sequence that cites the
+  qualifying signal and real customer language. Use when a lead is already
+  qualified and needs tailored touches. Do not use to find new ICP leads
+  (use icp-*), write social content (content-*), or prepare a live call brief
+  (pre-call).
 metadata:
   engram:
     schema_version: "1"
@@ -9,7 +13,7 @@ metadata:
     title: Outbound sequence personalization
     lane: sales
     status: live
-    version: 1.0.0
+    version: 1.1.0
     author: engram
     catalog:
       outcome: >-
@@ -64,14 +68,18 @@ metadata:
         - id: hooks
           type: structured_results
           title: Hook variants
-          required: false
+          required: true
     prompt:
       template: >-
-        Personalize an outbound sequence for {{prospect_name}} based on signal: {{qualifying_signal}}. Find the wedge, draft {{sequence_length}} touches with new angles each time, and ground language in how our customers actually describe the problem.
+        Personalize an outbound sequence for {{prospect_name}} based on signal:
+        "{{qualifying_signal}}". Find the wedge with evidence, draft {{sequence_length}}
+        touches each with a new angle (wedge → proof → reframe), ground copy in how
+        our customers describe the problem, and list labeled hook variants as competing
+        theories of what they care about.
     eval:
       id: outbound
-      required_substrings: ["wedge", "sequence", "touch"]
-      required_artifacts: ["research_wedge", "sequence", "hooks"]
+      required_substrings: [Jordan Lee, marketing roles, wedge]
+      required_artifacts: [research_wedge, sequence, hooks]
 ---
 
 # Outbound sequence personalization
@@ -81,16 +89,25 @@ Signal-grounded sequences — not template sprays.
 ## When to use
 
 - A lead already has a qualifying signal and needs a tailored multi-touch path.
-- You want A/B hooks as competing theories of what they care about.
+- You want A/B hooks as competing theories of care.
 
-## Phases
+## When not to use
 
-1. Prospect researcher → one paragraph wedge + evidence.
-2. Sequence drafter → each touch a new angle (wedge → proof → reframe).
-3. Hook generator (outbound mode).
-4. Customer language extractor — recycle real words.
+- Finding / scoring new leads → `icp-*`.
+- Walking into a scheduled call → `pre-call`.
+
+## Phase 1 — Wedge research
+
+1. One-paragraph wedge + evidence tied to the qualifying signal.
+2. Emit **research_wedge**.
+
+## Phase 2 — Sequence & hooks
+
+1. Draft touches per `references/sequence-quality.md`.
+2. Extract customer language from brand memory / proof library.
+3. Emit **sequence** + labeled **hooks**.
 
 ## Constraints
 
-- Every touch must reference or advance the qualifying signal.
-- No progressive desperation copy.
+- Every touch advances or reframes the qualifying signal.
+- No progressive desperation ("just bumping") copy.

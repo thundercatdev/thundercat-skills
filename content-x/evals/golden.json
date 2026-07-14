@@ -6,13 +6,6 @@
     "mode": "reply",
     "time_window": "7d"
   },
-  "required_substrings": [
-    "thread",
-    "draft",
-    "reply"
-  ],
-  "required_artifacts": [
-    "thread_targets",
-    "social_draft"
-  ]
+  "required_substrings": ["GTM agents", "thread", "draft"],
+  "required_artifacts": ["thread_targets", "social_draft"]
 }

@@ -1,7 +1,11 @@
 ---
 name: market-signals
 description: >-
-  Prioritized competitor and market signals with battle-card reframes and recommended actions — not a news digest.
+  Prioritize competitor/market moves into 3–5 actionable signals with battle-card
+  reframe (hiring, pricing, positioning, reviews). Use when you need a response
+  plan, not a news digest. Do not use for drafting social posts (use content-linkedin
+  or the competitive-intel-content-brief composite) or for living brand positioning
+  (use positioning).
 metadata:
   engram:
     schema_version: "1"
@@ -9,7 +13,7 @@ metadata:
     title: Market signal intelligence
     lane: marketing
     status: live
-    version: 1.0.0
+    version: 1.1.0
     author: engram
     catalog:
       outcome: >-
@@ -61,30 +65,43 @@ metadata:
           required: true
     prompt:
       template: >-
-        For {{competitor_name}} over {{time_window}}, scan hiring/pricing/positioning/reviews, reduce to 3–5 actionable signals with priority and recommended action, and refresh the battle card (narrative, weakness, reframe).
+        For {{competitor_name}} over {{time_window}}, scan hiring/pricing/positioning/reviews.
+        Reduce to 3–5 P1–P3 signals (source, implication, recommended action, priority), then
+        refresh the battle card with narrative, weakness, and reframe — not a feature matrix.
     eval:
       id: market_signals
-      required_substrings: ["signal", "priority", "reframe"]
-      required_artifacts: ["signal_table", "battle_card"]
+      required_substrings: [Acme Corp, P1, reframe]
+      required_artifacts: [signal_table, battle_card]
 ---
 
 # Market signal intelligence
 
-Actionable competitor/market intel — firehose reduced to 3–5 moves that need response.
+Actionable competitor/market intel — firehose cut to moves that need a response.
 
 ## When to use
 
-- A competitor moved (hiring, pricing, launch, reviews) and you need priorities, not a digest.
+- A named competitor moved (hiring, pricing, launch, reviews) and you need priorities.
 - Job posts often reveal strategy 3–6 months early.
 
-## Phases
+## When not to use
 
-1. Competitor monitor.
-2. Signal prioritizer → 3–5 actionable rows (source, implication, action, priority).
-3. Battle card generator — narrative, weakest point, reframe (not feature matrices).
-4. Note closed-loop check: was last week's intel useful?
+- You already have the signal and need a LinkedIn/X draft → `content-linkedin` / `content-x`.
+- You need claimed-vs-heard brand positioning → `positioning`.
+- You want signals **and** a channel draft in one run → `competitive-intel-content-brief`.
+
+## Phase 1 — Monitor & prioritize
+
+1. Scan hiring, pricing, positioning, and review drift for the configured window.
+2. Reduce to **3–5** rows using `references/signal-rubric.md`.
+3. Emit **signal_table** before any narrative summary.
+
+## Phase 2 — Battle card
+
+1. Write narrative (what they claim), weakness, reframe (how we win the conversation).
+2. Optionally note closed-loop check: was last week's intel useful?
 
 ## Constraints
 
-- Structured signal table before narrative.
+- Structured table before prose.
 - Prefer actionable implication over news summary.
+- Use only tools enabled for this run; deliver exportable artifacts.

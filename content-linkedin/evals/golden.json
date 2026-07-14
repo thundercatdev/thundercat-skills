@@ -6,14 +6,6 @@
     "author_role": "Founder",
     "time_window": "7d"
   },
-  "required_substrings": [
-    "brief",
-    "draft",
-    "voice"
-  ],
-  "required_artifacts": [
-    "content_brief",
-    "social_draft",
-    "conversation_targets"
-  ]
+  "required_substrings": ["context loss", "brief", "draft"],
+  "required_artifacts": ["content_brief", "social_draft", "conversation_targets"]
 }

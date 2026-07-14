@@ -1,7 +1,11 @@
 ---
 name: icp-community
 description: >-
-  Surface qualified leads from community and review channels with context-specific hooks competitors are not watching.
+  Surface qualified leads from community and review channels (Facebook Groups,
+  Reddit, Google Business, Yelp) with hooks that cite the exact post or review.
+  Use when competitors ignore non-LinkedIn intent. Do not use for LinkedIn/hiring
+  signals (icp-linkedin), developer communities (icp-developer), or writing
+  outbound sequences (outbound).
 metadata:
   engram:
     schema_version: "1"
@@ -9,7 +13,7 @@ metadata:
     title: ICP signal discovery — community & social
     lane: marketing
     status: live
-    version: 1.0.0
+    version: 1.1.0
     author: engram
     catalog:
       outcome: >-
@@ -66,11 +70,14 @@ metadata:
           required: true
     prompt:
       template: >-
-        Find qualified {{icp_description}} leads in community/social channels ({{channels}}) over {{time_window}}. Deduplicate against known pipeline, verify businesses, and write a hook that references the exact post or review that surfaced each lead.
+        Find qualified "{{icp_description}}" leads in community/social channels
+        ({{channels}}) over {{time_window}}. Prefer purchase-intent language over
+        chatter; verify businesses; dedupe against known pipeline; write a hook that
+        references the exact post or review that surfaced each lead.
     eval:
       id: icp_community
-      required_substrings: ["lead", "hook", "intent"]
-      required_artifacts: ["lead_table", "hooks"]
+      required_substrings: [mid-market ops, hook, intent]
+      required_artifacts: [lead_table, hooks]
 ---
 
 # ICP signal discovery — community & social
@@ -79,23 +86,28 @@ Scan community and review channels for purchase-intent language your ICP actuall
 
 ## When to use
 
-- You want leads from Facebook Groups, Reddit, Google Business, or Yelp before they hit LinkedIn.
-- Hooks must cite the exact post, review, or complaint that surfaced the lead.
+- Leads from Facebook Groups, Reddit, Google Business, or Yelp before they hit LinkedIn.
+- Hooks must cite the exact post, review, or complaint.
+
+## When not to use
+
+- Professional network / hiring spikes → `icp-linkedin`.
+- HN / GitHub / Product Hunt → `icp-developer`.
+- Multi-touch sequence from an already-qualified signal → `outbound`.
 
 ## Phase 1 — Scan & detect intent
 
-1. Platform scanner (community mode): distinguish chatter from purchase-intent language.
-2. Intent signal detector: weight recency × specificity × urgency.
-3. Business verifier: use review count/rating as growth proxies (e.g. 50–1500 reviews, 4.2+).
+1. Scan configured channels; separate chatter from purchase-intent language.
+2. Weight intent by recency × specificity × urgency.
+3. Business-verify with growth proxies when useful (e.g. review count/rating bands).
 
 ## Phase 2 — Qualify & hook
 
-1. CRM deduplicator: suppress known contacts; escalate multi-channel reappearances.
-2. Hook generator: every hook references the exact context (post, review, complaint).
-3. Emit a **lead table** plus short hook drafts.
+1. Suppress known CRM contacts; escalate multi-channel reappearances.
+2. Draft hooks per `references/hook-quality.md`.
+3. Emit **lead_table** + **hooks**.
 
 ## Constraints
 
 - Prefer specific pain language over generic "anyone know a tool" noise.
 - Deliver exportable artifacts — not a step recap.
-- Use only enabled tools for this run.

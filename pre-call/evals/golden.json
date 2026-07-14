@@ -5,12 +5,6 @@
     "account_or_contact": "Northwind Labs",
     "call_purpose": "Discovery follow-up"
   },
-  "required_substrings": [
-    "relationship",
-    "play",
-    "stakeholder"
-  ],
-  "required_artifacts": [
-    "pre_call_brief"
-  ]
+  "required_substrings": ["Northwind Labs", "play", "stakeholder"],
+  "required_artifacts": ["pre_call_brief"]
 }

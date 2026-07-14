@@ -1,7 +1,10 @@
 ---
 name: renewal
 description: >-
-  Customer health, renewal brief with expansion angle and churn risks, and champion activity including silent succession risk.
+  Score customer health beyond usage volume, draft a renewal brief with expansion
+  angle and churn risks, and check whether the champion is still the champion.
+  Use for upcoming renewals. Do not use for new-logo handoff (onboarding-bridge),
+  open-pipeline ranking (pipeline), or VoC→messaging loops (voc).
 metadata:
   engram:
     schema_version: "1"
@@ -9,7 +12,7 @@ metadata:
     title: Renewal & expansion intelligence
     lane: customer_success
     status: live
-    version: 1.0.0
+    version: 1.1.0
     author: engram
     catalog:
       outcome: >-
@@ -56,11 +59,14 @@ metadata:
           required: true
     prompt:
       template: >-
-        Prepare renewal intelligence for {{account_name}} (renewal {{renewal_date}}). Score health beyond usage volume, answer whether we delivered / expand angle / churn risks, and check whether the champion is still the champion.
+        Prepare renewal intelligence for {{account_name}} (renewal {{renewal_date}}).
+        Score health as usage × sentiment/support (not volume alone); answer whether
+        we delivered, the expansion angle, and churn risks; check champion succession;
+        end with a concrete play for the renewal conversation.
     eval:
       id: renewal
-      required_substrings: ["health", "expansion", "churn"]
-      required_artifacts: ["health_score", "renewal_brief"]
+      required_substrings: [Northwind Labs, expansion, churn]
+      required_artifacts: [health_score, renewal_brief]
 ---
 
 # Renewal & expansion intelligence
@@ -72,11 +78,17 @@ Active retention — expansion angle and churn risk before the meeting.
 - Upcoming renewals; "active but unhappy" is the dangerous state.
 - Champion left unnoticed is a top preventable churn cause.
 
+## When not to use
+
+- Sales→CS new-logo handoff → `onboarding-bridge`.
+- Open sales pipeline ranking → `pipeline`.
+
 ## Phases
 
-1. Customer health scorer — usage × sentiment/support, not volume alone.
-2. Renewal brief: delivered? expand? churn?
-3. Champion activity tracker (renewal mode).
+1. Health score: usage × sentiment/support — flag "active but unhappy".
+2. Brief: delivered? expand? churn risks?
+3. Champion activity / succession check.
+4. Emit **health_score** + **renewal_brief** with the play.
 
 ## Constraints
 

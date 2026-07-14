@@ -6,14 +6,6 @@
     "qualifying_signal": "Hired 3 marketing roles in 2 weeks",
     "sequence_length": "4"
   },
-  "required_substrings": [
-    "wedge",
-    "sequence",
-    "touch"
-  ],
-  "required_artifacts": [
-    "research_wedge",
-    "sequence",
-    "hooks"
-  ]
+  "required_substrings": ["Jordan Lee", "marketing roles", "wedge"],
+  "required_artifacts": ["research_wedge", "sequence", "hooks"]
 }

@@ -1,7 +1,10 @@
 ---
 name: content-x
 description: >-
-  Find the right X threads, draft punchy voice-calibrated posts and replies, and track follower-quality signal — not vanity impressions.
+  Find high-signal X threads and draft punchy voice-calibrated posts/replies —
+  presence in conversations, not broadcasting. Use for reply-first or short-form
+  X. Do not use for LinkedIn tone/length (use content-linkedin), ICP lead tables
+  (use icp-*), or long-form launch narratives (use launch).
 metadata:
   engram:
     schema_version: "1"
@@ -9,7 +12,7 @@ metadata:
     title: Content engine — X / Twitter
     lane: marketing
     status: live
-    version: 1.0.0
+    version: 1.1.0
     author: engram
     catalog:
       outcome: >-
@@ -72,11 +75,14 @@ metadata:
           required: true
     prompt:
       template: >-
-        For {{topic_or_keywords}} over {{time_window}}, find high-signal X threads and produce {{mode}} drafts in my X voice (punchier than LinkedIn). Skip replies when there is nothing to add.
+        For "{{topic_or_keywords}}" over {{time_window}}, find high-signal X threads
+        and produce {{mode}} drafts in my X voice (punchier and more opinionated than
+        LinkedIn). If nothing unique to add, list threads for awareness only — do not
+        invent spam replies.
     eval:
       id: content_x
-      required_substrings: ["thread", "draft", "reply"]
-      required_artifacts: ["thread_targets", "social_draft"]
+      required_substrings: [GTM agents, thread, draft]
+      required_artifacts: [thread_targets, social_draft]
 ---
 
 # Content engine — X / Twitter
@@ -85,16 +91,26 @@ Presence in the right conversations — speed and substance over broadcast.
 
 ## When to use
 
-- You want replies within the first hour of high-signal threads.
+- Replies within the first hour of high-signal threads.
 - Same person needs a punchier, more opinionated voice than LinkedIn.
 
-## Phases
+## When not to use
 
-1. Thread finder (X).
-2. Voice-calibrated drafter (X).
-3. Reply drafter with don't-reply mode.
-4. Performance: follower quality growth, not impressions.
+- LinkedIn strategy brief + long draft → `content-linkedin`.
+- Launch channel pack across functions → `launch`.
+
+## Phase 1 — Find threads
+
+1. Search topic/keywords in the window; score for ICP relevance and freshness.
+2. Emit **thread_targets** with why each is worth joining.
+
+## Phase 2 — Draft
+
+1. Voice-calibrated X drafts per configured mode (reply / post / both).
+2. Apply don't-reply: if nothing unique, awareness only — no spam.
+3. Emit **social_draft**; note follower-quality signal over impressions.
 
 ## Constraints
 
-- If nothing unique to add, surface for awareness — do not draft spam.
+- Shorter and sharper than LinkedIn; no LinkedIn-length essays.
+- Use only enabled tools; deliver exportable artifacts.

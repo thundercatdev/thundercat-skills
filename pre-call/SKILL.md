@@ -1,7 +1,11 @@
 ---
 name: pre-call
 description: >-
-  Relationship narrative, last-48h context, stakeholder map, and the play — so nobody walks into a call cold.
+  Build a pre-call brief with relationship narrative, last-48h context,
+  stakeholder map, and a concrete play — so nobody walks in cold. Use before
+  discovery, demos, or exec joins. Do not use for multi-touch outbound
+  (outbound), full pipeline ranking (pipeline), or sales→CS handoff
+  (onboarding-bridge).
 metadata:
   engram:
     schema_version: "1"
@@ -9,7 +13,7 @@ metadata:
     title: Pre-call intelligence brief
     lane: sales
     status: live
-    version: 1.0.0
+    version: 1.1.0
     author: engram
     catalog:
       outcome: >-
@@ -56,11 +60,14 @@ metadata:
           required: true
     prompt:
       template: >-
-        Build a pre-call brief for {{account_or_contact}} (purpose: {{call_purpose}}). Synthesize relationship narrative, last-48h news/activity, stakeholder map, and a concrete play.
+        Build a pre-call brief for {{account_or_contact}} (purpose: {{call_purpose}}).
+        Synthesize relationship narrative (not a CRM dump), last-48h news/activity,
+        stakeholder map for the internal sell path, and a concrete play with risks
+        if the champion cannot sell internally.
     eval:
       id: pre_call
-      required_substrings: ["relationship", "play", "stakeholder"]
-      required_artifacts: ["pre_call_brief"]
+      required_substrings: [Northwind Labs, play, stakeholder]
+      required_artifacts: [pre_call_brief]
 ---
 
 # Pre-call intelligence brief
@@ -69,16 +76,23 @@ Nobody walks in cold — narrative, not a data dump.
 
 ## When to use
 
-- Discovery, demos, or executives joins where recent context wins trust.
-- You need the internal sell path, not just the champion's enthusiasm.
+- Discovery, demos, or executive joins where recent context wins trust.
+- You need the internal sell path, not just champion enthusiasm.
+
+## When not to use
+
+- Multi-touch email/LinkedIn sequence → `outbound`.
+- Weekly deal ranking → `pipeline`.
+- Post-close sales→CS handoff → `onboarding-bridge`.
 
 ## Phases
 
-1. Pre-call brief generator — synthesised story.
-2. News & activity scanner — last 48 hours preferred.
-3. Stakeholder mapper — who must be sold internally.
+1. Synthesize relationship narrative from CRM / calls / email.
+2. Scan last-48h news and activity (prefer freshness).
+3. Map stakeholders who must be sold internally.
+4. Emit **pre_call_brief** with the play and landmines.
 
 ## Constraints
 
-- Prefer a narrative with the play over bullet CRM dumps.
-- Note risk if champion cannot sell internally.
+- Narrative + play over bullet CRM dumps.
+- Flag risk if champion cannot sell internally.

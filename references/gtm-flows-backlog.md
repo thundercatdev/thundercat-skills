@@ -5,6 +5,8 @@
 
 **Live today:** All 13 workflow slugs below are published as Skill Hub packages (plus composite `competitive-intel-content-brief` = `market-signals` + `content-linkedin`). This file remains the atomic-skill decomposition reference.
 
+**Authoring bar (v1.1):** trigger-rich `description` with when-not-to-use routing; procedure bodies with phases/constraints (not atom-name lists); fixture-tied `evals/golden.json`; lean `references/` for rubrics that would bloat the body.
+
 ---
 
 ## Summary

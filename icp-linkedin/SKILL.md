@@ -1,7 +1,10 @@
 ---
 name: icp-linkedin
 description: >-
-  Qualified LinkedIn leads with firmographic fit scores and peer-style hooks; treat hiring spikes as leading indicators.
+  Qualify LinkedIn / Sales Nav leads with firmographic fit reasons and peer-style
+  hooks; treat hiring spikes as leading indicators. Use for B2B discovery before
+  vendor evaluation. Do not use for community/review channels (icp-community),
+  developer forums (icp-developer), or full outbound sequences (outbound).
 metadata:
   engram:
     schema_version: "1"
@@ -9,7 +12,7 @@ metadata:
     title: ICP signal discovery — professional networks
     lane: marketing
     status: live
-    version: 1.0.0
+    version: 1.1.0
     author: engram
     catalog:
       outcome: >-
@@ -68,11 +71,14 @@ metadata:
           required: true
     prompt:
       template: >-
-        Find {{icp_description}} accounts on LinkedIn over {{time_window}} focusing on {{signal_focus}}. Score firmographic fit with a reason, dedupe against CRM, and draft peer-style hooks that map the signal to the likely internal problem.
+        Find "{{icp_description}}" accounts on LinkedIn over {{time_window}} focusing
+        on {{signal_focus}}. Score firmographic fit with a concrete reason, dedupe
+        against CRM, and draft peer-style hooks that map the signal to the likely
+        internal problem (e.g. hiring spike → context-transfer cost).
     eval:
       id: icp_linkedin
-      required_substrings: ["lead", "fit", "hook"]
-      required_artifacts: ["lead_table", "hooks"]
+      required_substrings: [mid-market ops, fit, hook]
+      required_artifacts: [lead_table, hooks]
 ---
 
 # ICP signal discovery — professional networks
@@ -81,21 +87,27 @@ LinkedIn and Sales Nav signals with hiring as a leading indicator.
 
 ## When to use
 
-- You need B2B leads before they start vendor evaluation.
+- B2B leads before active vendor evaluation.
 - Job postings (e.g. 3 marketing roles in 2 weeks) signal expensive context-transfer pain.
+
+## When not to use
+
+- Reddit / Facebook / Yelp intent → `icp-community`.
+- HN / GitHub / PH → `icp-developer`.
+- Already-qualified prospect needing a sequence → `outbound`.
 
 ## Phase 1 — Scan & score
 
-1. Platform scanner (LinkedIn mode): job posts, buyer language, org moves.
-2. Firmographic fit scorer: composite score **plus** the specific reason.
+1. Scan job posts, buyer language, and org moves for the focus mode.
+2. Firmographic fit: composite score **plus** the specific reason.
 
 ## Phase 2 — Dedupe & hook
 
-1. CRM deduplicator: suppress vs escalate.
-2. Hook generator (professional mode): peer observation, not a pitch.
-3. Emit lead table + hooks.
+1. CRM suppress vs escalate.
+2. Peer-style hooks per `references/hook-quality.md` — observation, not pitch.
+3. Emit **lead_table** + **hooks**.
 
 ## Constraints
 
-- Output reasons, not just scores.
+- Reasons over scores alone.
 - Hooks must feel like a peer observation.

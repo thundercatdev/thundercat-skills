@@ -1,7 +1,10 @@
 ---
 name: content-linkedin
 description: >-
-  Strategy brief, voice-calibrated LinkedIn draft, conversation targets, and performance notes for consistent team posting.
+  Produce a LinkedIn strategy brief, voice-calibrated draft, and threads to join
+  early — grounded in live market conversation and brand memory. Use for weekly
+  attributable posting. Do not use for X/Twitter voice (use content-x), ICP lead
+  hunting (use icp-*), or competitor signal triage alone (use market-signals).
 metadata:
   engram:
     schema_version: "1"
@@ -9,7 +12,7 @@ metadata:
     title: Content engine — LinkedIn
     lane: marketing
     status: live
-    version: 1.0.0
+    version: 1.1.0
     author: engram
     catalog:
       outcome: >-
@@ -71,14 +74,17 @@ metadata:
         - id: conversation_targets
           type: structured_results
           title: Threads to join
-          required: false
+          required: true
     prompt:
       template: >-
-        Build a LinkedIn content brief for {{topic_or_angle}} (author: {{author_role}}) using {{time_window}} market talk. Draft in my voice, suggest high-signal threads to join early, and note what to measure besides impressions.
+        Build a LinkedIn brief for "{{topic_or_angle}}" (author role: {{author_role}})
+        using {{time_window}} market talk. Include positioning angle, proof points, CTA;
+        draft in my LinkedIn voice; list high-signal threads to join early; note metrics
+        beyond impressions (profile-view→DM, inbound-attributed calls).
     eval:
       id: content_linkedin
-      required_substrings: ["brief", "draft", "voice"]
-      required_artifacts: ["content_brief", "social_draft", "conversation_targets"]
+      required_substrings: [context loss, brief, draft]
+      required_artifacts: [content_brief, social_draft, conversation_targets]
 ---
 
 # Content engine — LinkedIn
@@ -87,18 +93,29 @@ Voice-calibrated LinkedIn content grounded in live market conversation.
 
 ## When to use
 
-- Weekly posting with attributable inbound — not a content calendar.
+- Weekly posting with attributable inbound — not filling a content calendar.
 - You need a decision brief: what the market is talking about that you have a right to speak on.
 
-## Phases
+## When not to use
 
-1. Strategy brief generator.
-2. Voice-calibrated drafter (LinkedIn) using brand memory / past edits.
-3. Thread & conversation finder — early on high-quality ICP posts.
-4. Performance notes: profile-view→DM and inbound-attributed calls, not impressions.
-5. Optional voice recalibrator from edit patterns.
+- Punchier reply-first X presence → `content-x`.
+- Competitor noise → prioritized signals → `market-signals` (or the composite).
+- Lead/hook generation from communities → `icp-*`.
+
+## Phase 1 — Brief
+
+1. Summarize the market conversation on the topic in the time window.
+2. Choose an angle with proof points and CTA the author role can own.
+3. Emit **content_brief** (market_conversation, angle, proof_points, cta).
+
+## Phase 2 — Draft & conversations
+
+1. Draft in brand voice from memory / past edits — reader should guess the author.
+2. Find early, high-quality ICP threads; emit **conversation_targets**.
+3. Emit **social_draft** via `<engram_content type="social_media_posts" />` when applicable.
+4. Note performance cues: profile-view→DM and inbound-attributed calls, not impressions.
 
 ## Constraints
 
-- Reader should guess the author without seeing the name.
-- Use `<engram_content type="social_media_posts" />` for the draft when applicable.
+- No generic LinkedIn-bro cadence; prefer customer/market language.
+- Deliver exportable artifacts — not a step recap.

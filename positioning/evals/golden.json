@@ -5,13 +5,6 @@
     "claimed_positioning": "GTM infrastructure for AI-native teams",
     "time_window": "7d"
   },
-  "required_substrings": [
-    "positioning",
-    "gap",
-    "sentiment"
-  ],
-  "required_artifacts": [
-    "positioning_doc",
-    "sentiment_table"
-  ]
+  "required_substrings": ["GTM infrastructure", "gap", "perception"],
+  "required_artifacts": ["positioning_doc", "sentiment_table"]
 }

@@ -1,7 +1,10 @@
 ---
 name: positioning
 description: >-
-  Maintain a living positioning document from market language gaps, sentiment accuracy, and drift trends.
+  Maintain a living positioning document from the gap between claimed positioning
+  and market language — perception accuracy, not ± sentiment. Use as the source of
+  truth for downstream GTM. Do not use for competitor move triage (market-signals),
+  VoC clustering into product briefs (voc), or channel drafts (content-*).
 metadata:
   engram:
     schema_version: "1"
@@ -9,7 +12,7 @@ metadata:
     title: Positioning intelligence & brand sentiment
     lane: marketing
     status: live
-    version: 1.0.0
+    version: 1.1.0
     author: engram
     catalog:
       outcome: >-
@@ -65,11 +68,14 @@ metadata:
           required: true
     prompt:
       template: >-
-        Compare our claimed positioning "{{claimed_positioning}}" to how the market describes us over {{time_window}}. Detect perception accuracy (not just +/- sentiment), message-market fit gaps, and drift vs prior periods. Update the living positioning document.
+        Compare our claimed positioning "{{claimed_positioning}}" to how the market
+        describes us over {{time_window}}. Detect perception accuracy (e.g. love us
+        but wrong category), message-market fit gaps, and drift vs prior periods.
+        Update the living positioning document with claimed / heard / gap / updates.
     eval:
       id: positioning
-      required_substrings: ["positioning", "gap", "sentiment"]
-      required_artifacts: ["positioning_doc", "sentiment_table"]
+      required_substrings: [GTM infrastructure, gap, perception]
+      required_artifacts: [positioning_doc, sentiment_table]
 ---
 
 # Positioning intelligence & brand sentiment
@@ -78,15 +84,24 @@ Living positioning from the gap between what you say and what the market hears.
 
 ## When to use
 
-- Downstream flows need one source of positioning truth.
+- Downstream flows need one positioning source of truth.
 - Positive sentiment can still hide a category misperception.
 
-## Phases
+## When not to use
 
-1. Positioning document maintainer.
-2. Sentiment analyzer — perception accuracy ("love us but think we're a content tool").
-3. Message-market fit analyzer — claimed phrase vs market phrase.
-4. Drift detector — catching trend before crisis.
+- Competitor hiring/pricing/review moves → `market-signals`.
+- Support/NPS/call clustering for PM → `voc`.
+
+## Phase 1 — Gather language
+
+1. Pull market phrases (reviews, social, calls) for the window.
+2. Score perception accuracy per `references/perception-accuracy.md`.
+
+## Phase 2 — Update the living doc
+
+1. Message-market fit: claimed phrase vs heard phrase.
+2. Drift vs prior periods — catch trend before crisis.
+3. Emit **positioning_doc** + **sentiment_table**.
 
 ## Constraints
 
