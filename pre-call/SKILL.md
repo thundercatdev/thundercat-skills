@@ -20,7 +20,7 @@ metadata:
         Structured brief with relationship history, recent context, and the play.
       duration_label: "~3 min"
       skill_count: 3
-      connectors: [CRM, Fathom, Gmail, Zendesk, LinkedIn, X, Crunchbase]
+      connectors: [Fathom, Gmail]
     activation:
       default_enabled: false
       requires_brand: true
@@ -35,6 +35,12 @@ metadata:
           type: text
           required: false
           default: "discovery"
+        - key: account_notes
+          label: Account notes (optional fallback)
+          type: text
+          required: false
+          default: ""
+          placeholder: "Paste CRM history when CRM is not connected"
     orchestration:
       tools:
         - id: web_research
@@ -62,12 +68,13 @@ metadata:
     prompt:
       template: >-
         Build a pre-call brief for {{account_or_contact}} (purpose: {{call_purpose}}).
-        Synthesize relationship narrative (not a CRM dump), last-48h news/activity,
-        stakeholder map for the internal sell path, and a concrete play with risks
-        if the champion cannot sell internally.
+        Use enabled tools plus account notes: "{{account_notes}}". Synthesize
+        relationship narrative (not a CRM dump), last-48h news/activity, stakeholder
+        map for the internal sell path, and a concrete play with risks if the champion
+        cannot sell internally. State gaps when CRM is unavailable.
     eval:
       id: pre_call
-      required_substrings: [Northwind Labs, play, stakeholder]
+      required_substrings: [Northwind Labs, relationship, recent, stakeholder, play, champion]
       required_artifacts: [pre_call_brief]
 ---
 
@@ -88,7 +95,8 @@ Nobody walks in cold — narrative, not a data dump.
 
 ## Phases
 
-1. Synthesize relationship narrative from CRM / calls / email.
+1. Synthesize relationship narrative from memory / Fathom / Gmail (and web research).
+   If CRM is not connected, state that gap — do not invent CRM history.
 2. Scan last-48h news and activity (prefer freshness).
 3. Map stakeholders who must be sold internally.
 4. Emit **pre_call_brief** with the play and landmines.

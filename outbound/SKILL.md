@@ -20,7 +20,7 @@ metadata:
         Outbound that reflects real prospect pain; each sequence cites the qualifying signal.
       duration_label: "~5 min"
       skill_count: 4
-      connectors: [CRM, Apollo, LinkedIn Sales Nav, Amplemarket, Outreach]
+      connectors: []
     activation:
       default_enabled: false
       requires_brand: true

@@ -19,7 +19,7 @@ metadata:
         CS walks into every renewal with expansion angle and churn risk identified.
       duration_label: "~5 min"
       skill_count: 3
-      connectors: [CRM, Mixpanel, Amplitude, Zendesk, Fathom, NPS/CSAT, Stripe]
+      connectors: [Fathom]
     activation:
       default_enabled: false
       requires_brand: true
@@ -34,6 +34,12 @@ metadata:
           type: text
           required: false
           default: "upcoming"
+        - key: health_notes
+          label: Health notes (optional fallback)
+          type: text
+          required: false
+          default: ""
+          placeholder: "Paste usage/support/NPS notes when analytics/CRM are not connected"
     orchestration:
       tools:
         - id: web_research
@@ -61,12 +67,13 @@ metadata:
     prompt:
       template: >-
         Prepare renewal intelligence for {{account_name}} (renewal {{renewal_date}}).
-        Score health as usage × sentiment/support (not volume alone); answer whether
-        we delivered, the expansion angle, and churn risks; check champion succession;
-        end with a concrete play for the renewal conversation.
+        Use enabled tools plus health notes: "{{health_notes}}". Score health as usage ×
+        sentiment/support (not volume alone); answer whether we delivered, the expansion
+        angle, and churn risks; check champion succession; end with a concrete play.
+        State gaps when product analytics/CRM/support are not connected — do not invent metrics.
     eval:
       id: renewal
-      required_substrings: [Northwind Labs, expansion, churn]
+      required_substrings: [Northwind Labs, health, usage, sentiment, expansion, churn, champion, play]
       required_artifacts: [health_score, renewal_brief]
 ---
 
@@ -87,6 +94,7 @@ Active retention — expansion angle and churn risk before the meeting.
 ## Phases
 
 1. Health score: usage × sentiment/support — flag "active but unhappy".
+   Use Fathom + memory + web; state gaps when product analytics/CRM/support are not connected.
 2. Brief: delivered? expand? churn risks?
 3. Champion activity / succession check.
 4. Emit **health_score** + **renewal_brief** with the play.

@@ -19,7 +19,7 @@ metadata:
         A living positioning document; single source of truth for downstream GTM flows.
       duration_label: "~6 min"
       skill_count: 4
-      connectors: [LinkedIn, X, Reddit, G2, CRM, Fathom, Notion]
+      connectors: [Fathom, Notion]
     activation:
       default_enabled: false
       requires_brand: true
@@ -99,11 +99,13 @@ Living positioning from the gap between what you say and what the market hears.
 
 ## Phase 2 — Update the living doc
 
-1. Message-market fit: claimed phrase vs heard phrase.
-2. Drift vs prior periods — catch trend before crisis.
-3. Emit **positioning_doc** + **sentiment_table**.
+1. Privacy review first: redact personal/sensitive data; keep only approved attribution.
+2. Message-market fit: claimed phrase vs heard phrase (Fathom + Notion + memory; state gap if CRM unavailable).
+3. Drift vs prior periods — catch trend before crisis.
+4. Emit **positioning_doc** + **sentiment_table**.
 
 ## Constraints
 
 - Prefer customer quotes over paraphrase.
+- Privacy: redact personal/sensitive data; keep only approved or consented attribution before persisting into positioning_doc or sentiment_table.
 - Emit structured gap analysis, not a mood score alone.

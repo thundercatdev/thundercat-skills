@@ -19,7 +19,7 @@ metadata:
         Each GTM teammate posting in their own voice; content grounded in what the market is discussing.
       duration_label: "~5 min"
       skill_count: 5
-      connectors: [LinkedIn, Slack, Fathom, Granola, Shield]
+      connectors: [Slack, Fathom]
     activation:
       default_enabled: false
       requires_brand: true
@@ -68,6 +68,7 @@ metadata:
           type: markdown_sections
           sections: [market_conversation, angle, proof_points, cta]
           required: true
+        # Always required on every run — never skip / never "when applicable".
         - id: social_draft
           type: engram_content
           content_type: social_media_posts
@@ -80,8 +81,8 @@ metadata:
       template: >-
         Build a LinkedIn brief for "{{topic_or_angle}}" (author role: {{author_role}})
         using {{time_window}} market talk. Include positioning angle, proof points, CTA;
-        draft in my LinkedIn voice; list high-signal threads to join early; note metrics
-        beyond impressions (profile-view→DM, inbound-attributed calls).
+        draft in my LinkedIn voice and always emit social_draft; list high-signal threads
+        to join early; note metrics beyond impressions (profile-view→DM, inbound-attributed calls).
     eval:
       id: content_linkedin
       required_substrings: [context loss, brief, draft]
@@ -113,7 +114,7 @@ Voice-calibrated LinkedIn content grounded in live market conversation.
 
 1. Draft in brand voice from memory / past edits — reader should guess the author.
 2. Find early, high-quality ICP threads; emit **conversation_targets**.
-3. Emit **social_draft** via `<engram_content type="social_media_posts" />` when applicable.
+3. Always emit **social_draft** via `<engram_content type="social_media_posts" />` (required export).
 4. Note performance cues: profile-view→DM and inbound-attributed calls, not impressions.
 
 ## Constraints

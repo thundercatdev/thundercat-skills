@@ -19,7 +19,7 @@ metadata:
         Qualified leads from HN, GitHub, and Product Hunt — identified before they show up on LinkedIn.
       duration_label: "~5 min"
       skill_count: 3
-      connectors: [HN, GitHub, Product Hunt, CRM, Apollo]
+      connectors: []
     activation:
       default_enabled: false
       requires_brand: true

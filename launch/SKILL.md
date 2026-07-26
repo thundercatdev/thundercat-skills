@@ -20,7 +20,7 @@ metadata:
         Coordinated launches; post-launch tracking closes the loop on what worked.
       duration_label: "~8 min"
       skill_count: 4
-      connectors: [Slack, Notion, GitHub, Linear, CMS, Resend, CRM, Intercom, Mixpanel]
+      connectors: [Slack, Notion, Linear]
     activation:
       default_enabled: false
       requires_brand: true
@@ -80,14 +80,21 @@ metadata:
           type: engram_content
           content_type: social_media_posts
           required: false
+          required_when:
+            config_key: primary_channel
+            in: [linkedin, x]
         - id: launch_longform
           type: markdown_sections
           sections: [title, body]
           required: false
+          required_when:
+            config_key: primary_channel
+            in: [blog, email]
         - id: battle_card
           type: markdown_sections
           sections: [claim_ground, competitor_reframe]
           required: true
+      exactly_one_of: [[launch_drafts, launch_longform]]
     prompt:
       template: >-
         Orchestrate GTM for launch "{{launch_name}}" (target: {{launch_date}}).
@@ -99,7 +106,12 @@ metadata:
     eval:
       id: launch
       required_substrings: [Workspace memory sync, narrative, channel]
-      required_artifacts: [launch_plan, launch_drafts, battle_card]
+      required_artifacts: [launch_plan, battle_card]
+      channel_required_artifacts:
+        linkedin: [launch_drafts]
+        x: [launch_drafts]
+        blog: [launch_longform]
+        email: [launch_longform]
 ---
 
 # Product launch GTM orchestration
@@ -134,3 +146,4 @@ Narrative consistency under pressure — then prove the launch worked.
 
 - Blog post ≠ tweet with different length; rewrite per channel.
 - Match artifact type to `primary_channel` — social keeps LinkedIn/X export cards; longform stays markdown.
+- Emit exactly one channel draft artifact: `launch_drafts` (linkedin/x) or `launch_longform` (blog/email) — never both, never neither.

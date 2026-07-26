@@ -1,11 +1,40 @@
-{
-  "id": "launch",
-  "skill_id": "launch",
-  "prompt_fixture": {
-    "launch_name": "Workspace memory sync",
-    "launch_date": "2026-08-01",
-    "primary_channel": "linkedin"
+[
+  {
+    "id": "launch_linkedin",
+    "skill_id": "launch",
+    "prompt_fixture": {
+      "launch_name": "Workspace memory sync",
+      "launch_date": "2026-08-01",
+      "primary_channel": "linkedin"
+    },
+    "required_substrings": [
+      "Workspace memory sync",
+      "narrative",
+      "channel"
+    ],
+    "required_artifacts": [
+      "launch_plan",
+      "launch_drafts",
+      "battle_card"
+    ]
   },
-  "required_substrings": ["Workspace memory sync", "narrative", "channel"],
-  "required_artifacts": ["launch_plan", "launch_drafts", "battle_card"]
-}
+  {
+    "id": "launch_blog",
+    "skill_id": "launch",
+    "prompt_fixture": {
+      "launch_name": "Workspace memory sync",
+      "launch_date": "2026-08-01",
+      "primary_channel": "blog"
+    },
+    "required_substrings": [
+      "Workspace memory sync",
+      "narrative",
+      "channel"
+    ],
+    "required_artifacts": [
+      "launch_plan",
+      "launch_longform",
+      "battle_card"
+    ]
+  }
+]

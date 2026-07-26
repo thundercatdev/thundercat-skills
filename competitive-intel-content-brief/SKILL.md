@@ -19,8 +19,8 @@ metadata:
       outcome: Prioritized competitor signals plus a voice-calibrated content brief and draft post.
       duration_label: "~3 min"
       skill_count: 5
-      connectors: [LinkedIn, X, G2, Notion, Memory]
-      composite_of: [market-signals, content-linkedin]
+      connectors: [Notion, Slack]
+      composite_of: [market-signals, content-linkedin, content-x]
     activation:
       default_enabled: true
       requires_brand: true
@@ -98,7 +98,7 @@ metadata:
 
 # Competitive intel → content brief
 
-Composite GTM workflow: **market-signals** → **content-linkedin**.
+Composite GTM workflow: **market-signals** → **content-linkedin** or **content-x** (by `content_channel`).
 
 ## When to use
 
@@ -115,7 +115,7 @@ Composite GTM workflow: **market-signals** → **content-linkedin**.
 
 1. Scan competitor hiring, pricing, positioning, and review drift in the time window.
 2. Reduce to **3–5 prioritized signals** with source, implication, action, priority.
-3. Emit **signal_table** before narrative (see `references/signal-rubric.md`).
+3. Emit **signal_table** before narrative (see `references/signal-rubric.md` (same contract as `market-signals`)).
 4. Emit **battle_card** with narrative, weakness, and reframe (same contract as `market-signals`).
 5. Optionally run `scripts/prioritize_signals.py` to rank raw signal rows.
 
@@ -123,7 +123,9 @@ Composite GTM workflow: **market-signals** → **content-linkedin**.
 
 1. Reframe the battle card from the top signal if Phase 1 did not already.
 2. Draft brief: positioning, angle, proof points, CTA — calibrated to brand memory.
-3. Draft the social post for the configured channel; use `<engram_content type="social_media_posts" />` when applicable.
+3. Draft for `content_channel`:
+   - `linkedin` → follow `content-linkedin` voice/length; always emit **social_draft**.
+   - `x` → follow `content-x` punchier reply-first voice; always emit **social_draft** (empty posts + awareness note if nothing unique).
 
 ## Constraints
 

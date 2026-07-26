@@ -19,7 +19,7 @@ metadata:
         Pipeline ranked by likelihood to close; clear next action per deal.
       duration_label: "~5 min"
       skill_count: 4
-      connectors: [CRM, Email, Web analytics, LinkedIn, Outreach]
+      connectors: []
     activation:
       default_enabled: false
       requires_brand: true
@@ -39,6 +39,12 @@ metadata:
               label: Last 7 days
             - value: 30d
               label: Last 30 days
+        - key: deal_notes
+          label: Deal notes (optional fallback)
+          type: text
+          required: false
+          default: ""
+          placeholder: "Paste CRM/activity notes when private connectors are not connected"
     orchestration:
       tools:
         - id: web_research
@@ -61,10 +67,12 @@ metadata:
           required: true
     prompt:
       template: >-
-        Score and prioritize "{{pipeline_scope}}" over {{time_window}}. Weight
-        behavioral signals (pricing/page depth ≫ opens) and champion activity
-        including silence; explain velocity stalls; recommend one concrete next
-        action per deal — never "follow up".
+        Score and prioritize "{{pipeline_scope}}" over {{time_window}} using brand
+        memory, public research, and deal notes: "{{deal_notes}}". Weight available
+        behavioral/champion signals (pricing/page depth ≫ opens; silence matters);
+        when CRM/email/analytics are not connected, state those gaps and avoid inventing
+        private activity. Explain velocity stalls; recommend one concrete next action
+        per deal — never "follow up".
     eval:
       id: pipeline
       required_substrings: ["$20k", champion, action]
@@ -87,8 +95,8 @@ Likelihood ranking with leading indicators and specific next actions.
 
 ## Phases
 
-1. Score behavioral signals (pricing visits ≫ email opens).
-2. Track champion activity — silence matters.
+1. Score available behavioral signals (pricing visits ≫ email opens); note missing private sources.
+2. Track champion activity from memory/web — silence matters when evidenced.
 3. Analyze velocity stalls with likely reason.
 4. Recommend next actions per `references/next-action-quality.md`.
 5. Emit **ranked_pipeline** + **next_actions**.

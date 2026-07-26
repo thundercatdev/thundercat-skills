@@ -1,7 +1,7 @@
 ---
 name: onboarding-bridge
 description: >-
-  Build a sales→CS handoff brief with why they bought, champions vs daily users,
+  Build a sales→CS handoff brief with why bought, champions vs daily users,
   success criteria in their language, and landmines. Use at new-logo handoff.
   Do not use for pre-call prep (pre-call), renewal/expansion intelligence
   (renewal), or VoC clustering (voc).
@@ -16,10 +16,10 @@ metadata:
     author: engram
     catalog:
       outcome: >-
-        Zero context loss at handoff — why they bought, who championed, success criteria, landmines.
+        Zero context loss at handoff — why bought, who championed, success criteria, landmines.
       duration_label: "~4 min"
       skill_count: 3
-      connectors: [CRM, Fathom, Gmail, Slack, Notion]
+      connectors: [Fathom, Gmail, Slack, Notion]
     activation:
       default_enabled: false
       requires_brand: true
@@ -34,6 +34,12 @@ metadata:
           type: text
           required: false
           default: "recently"
+        - key: close_notes
+          label: Close notes (optional fallback)
+          type: text
+          required: false
+          default: ""
+          placeholder: "Paste CRM close notes when CRM is not connected"
     orchestration:
       tools:
         - id: memory
@@ -65,12 +71,13 @@ metadata:
     prompt:
       template: >-
         Build an onboarding handoff brief for {{account_name}} (closed {{close_date}}).
-        Capture rational and emotional reasons they bought; map stakeholders (sales
-        champion vs daily user); state success criteria in their words; list landmines
-        (politics, failed prior tools, skeptics).
+        Capture rational and emotional reasons why bought (use close notes if provided:
+        "{{close_notes}}"); map stakeholders (sales champion vs daily user); state
+        success criteria in their words; list landmines (politics, failed prior tools,
+        skeptics).
     eval:
       id: onboarding_bridge
-      required_substrings: [Northwind Labs, success, landmine]
+      required_substrings: [Northwind Labs, why bought, stakeholder, success criteria, landmine]
       required_artifacts: [onboarding_brief]
 ---
 
@@ -90,7 +97,8 @@ Zero context loss from sales → CS.
 
 ## Phases
 
-1. Pull close notes, calls, and email for why they bought (rational + felt).
+1. Pull close notes from memory / Fathom / Gmail / `close_notes` for why bought (rational + felt).
+   If CRM is not connected and close_notes is empty, state that gap — do not invent CRM close notes.
 2. Map stakeholders: sales champion vs daily users vs blockers.
 3. Extract success criteria in their language; list landmines.
 4. Emit **onboarding_brief**.

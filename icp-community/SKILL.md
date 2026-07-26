@@ -20,7 +20,7 @@ metadata:
         Qualified leads from channels competitors are not watching — delivered with a custom hook per lead.
       duration_label: "~5 min"
       skill_count: 5
-      connectors: [Facebook Groups, Reddit, Google Business, Yelp, CRM, Apollo]
+      connectors: [Slack]
     activation:
       default_enabled: false
       requires_brand: true
@@ -45,6 +45,12 @@ metadata:
               label: Last 7 days
             - value: 30d
               label: Last 30 days
+        - key: known_accounts
+          label: Known accounts to suppress (optional)
+          type: text
+          required: false
+          default: ""
+          placeholder: "Comma-separated accounts already in CRM/pipeline"
     orchestration:
       tools:
         - id: web_research
@@ -73,7 +79,8 @@ metadata:
       template: >-
         Find qualified "{{icp_description}}" leads in community/social channels
         ({{channels}}) over {{time_window}}. Prefer purchase-intent language over
-        chatter; verify businesses; dedupe against known pipeline; write a hook that
+        chatter; verify businesses; dedupe against known accounts "{{known_accounts}}"
+        and brand-memory pipeline (state gap if CRM unavailable); write a hook that
         references the exact post or review that surfaced each lead.
     eval:
       id: icp_community
@@ -104,7 +111,8 @@ Scan community and review channels for purchase-intent language your ICP actuall
 
 ## Phase 2 — Qualify & hook
 
-1. Suppress known CRM contacts; escalate multi-channel reappearances.
+1. Dedupe against known pipeline in brand memory; if CRM is not connected, state that gap.
+   Escalate multi-channel reappearances.
 2. Draft hooks per `references/hook-quality.md`.
 3. Emit **lead_table** + **hooks**.
 

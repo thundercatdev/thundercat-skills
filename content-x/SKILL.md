@@ -19,7 +19,7 @@ metadata:
         Team presence in the right X conversations — not broadcasting.
       duration_label: "~4 min"
       skill_count: 4
-      connectors: [X/Twitter, Slack, X analytics]
+      connectors: [Slack]
     activation:
       default_enabled: false
       requires_brand: true
@@ -77,7 +77,8 @@ metadata:
       template: >-
         For "{{topic_or_keywords}}" over {{time_window}}, find high-signal X threads
         and produce {{mode}} drafts in my X voice (punchier and more opinionated than
-        LinkedIn). If nothing unique to add, list threads for awareness only — do not
+        LinkedIn). If nothing unique to add, still emit social_draft with an empty
+        posts list and a one-line note "awareness only — no reply drafted"; do not
         invent spam replies.
     eval:
       id: content_x
@@ -108,7 +109,9 @@ Presence in the right conversations — speed and substance over broadcast.
 
 1. Voice-calibrated X drafts per configured mode (reply / post / both).
 2. Apply don't-reply: if nothing unique, awareness only — no spam.
-3. Emit **social_draft**; note follower-quality signal over impressions.
+3. Always emit **social_draft** (required). For awareness-only runs use empty posts
+   plus an explicit "awareness only — no reply drafted" note — never invent replies.
+4. Note follower-quality signal over impressions.
 
 ## Constraints
 

@@ -1,11 +1,11 @@
 ---
 name: voc
 description: >-
-  Aggregate customer feedback into pain/feature clusters weighted by value×recency,
-  extract verbatim language, brief product, and recommend messaging updates. Use
-  when support/NPS/calls/G2 language is not flowing into marketing or PM. Do not
-  use for living positioning docs (positioning), competitor moves (market-signals),
-  or renewal health (renewal).
+  Aggregate customer feedback into pain/feature clusters weighted by
+  value×recency×severity, extract anonymized verbatim language, brief product, and
+  recommend messaging updates. Use when support/NPS/calls/G2 language is not flowing
+  into marketing or PM. Do not use for living positioning docs (positioning),
+  competitor moves (market-signals), or renewal health (renewal).
 metadata:
   engram:
     schema_version: "1"
@@ -17,10 +17,10 @@ metadata:
     author: engram
     catalog:
       outcome: >-
-        Customer language flows into marketing and product systematically.
+        Clusters weighted by value×recency×severity; customer language flows into marketing and product.
       duration_label: "~6 min"
       skill_count: 5
-      connectors: [Zendesk, Fathom, NPS/CSAT, Slack, X, G2, CRM, Linear]
+      connectors: [Slack, Fathom, Linear]
     activation:
       default_enabled: false
       requires_brand: true
@@ -40,6 +40,12 @@ metadata:
               label: Last 7 days
             - value: 30d
               label: Last 30 days
+        - key: supplied_feedback
+          label: Pasted feedback (optional fallback)
+          type: text
+          required: false
+          default: ""
+          placeholder: "Paste tickets/NPS/quotes when Zendesk/NPS/G2/CRM are not connected"
     orchestration:
       tools:
         - id: web_research
@@ -78,14 +84,16 @@ metadata:
           required: true
     prompt:
       template: >-
-        Run a VoC loop for "{{feedback_scope}}" over {{time_window}}. Cluster
-        pains/features by value × recency × severity (not raw frequency); keep
-        verbatim quotes; produce a PM-ready brief (top 3 themes, customers,
+        Run a VoC loop for "{{feedback_scope}}" over {{time_window}}. Use enabled
+        tools plus any pasted notes: "{{supplied_feedback}}". Cluster pains/features
+        by value × recency × severity (not raw frequency). Anonymize customer
+        identities by default; keep verbatim quotes only after consent/visibility
+        check. Produce a PM-ready brief (top 3 themes, named-or-anonymized customers,
         strongest quote); recommend homepage/messaging updates as current →
-        customer language → replace.
+        customer language → replace — never publish unapproved confidential quotes.
     eval:
       id: voc
-      required_substrings: [NPS, theme, quote]
+      required_substrings: [NPS, value, recency, severity, theme, quote, customer language, replace]
       required_artifacts: [theme_table, product_brief, messaging_updates]
 ---
 
@@ -105,7 +113,8 @@ Customer words into marketing copy and product signal.
 
 ## Phases
 
-1. Aggregate feedback from the configured scope.
+1. Aggregate feedback from the configured scope via enabled tools (Slack/Fathom/Linear + web/memory).
+   State gaps when Zendesk/NPS/G2/CRM are not connected — do not invent private tickets.
 2. Cluster per `references/cluster-weighting.md`.
 3. Extract verbatim customer language.
 4. PM brief: top 3 themes, named customers, strongest quote.
@@ -114,5 +123,6 @@ Customer words into marketing copy and product signal.
 
 ## Constraints
 
-- Prefer verbatim quotes.
+- Prefer verbatim quotes after anonymization / consent check; exclude unapproved PII.
+- When Zendesk/NPS/G2/CRM are not connected, use `supplied_feedback` or state the gap — do not invent tickets.
 - PM brief must be actionable in ~5 minutes.

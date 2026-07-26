@@ -3,9 +3,9 @@ name: market-signals
 description: >-
   Prioritize competitor/market moves into 3–5 actionable signals with battle-card
   reframe (hiring, pricing, positioning, reviews). Use when you need a response
-  plan, not a news digest. Do not use for drafting social posts (use content-linkedin
-  or the competitive-intel-content-brief composite) or for living brand positioning
-  (use positioning).
+  plan, not a news digest. Do not use for drafting social posts (use content-linkedin,
+  content-x, or the competitive-intel-content-brief composite) or for living brand
+  positioning (use positioning).
 metadata:
   engram:
     schema_version: "1"
@@ -20,7 +20,7 @@ metadata:
         Prioritized feed with recommended actions and accountability — not a digest.
       duration_label: "~4 min"
       skill_count: 4
-      connectors: [LinkedIn, X, Crunchbase, Product Hunt, HN, G2, Press]
+      connectors: [Notion]
     activation:
       default_enabled: false
       requires_brand: true

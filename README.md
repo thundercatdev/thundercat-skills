@@ -39,7 +39,7 @@ Draft packages may exist in this repo but stay hidden until added to `manifest.j
 
 ## Backlog
 
-Source catalog from [engram-demos](https://github.com/tryvinci/engram-demos): [`references/gtm-flows-backlog.md`](./references/gtm-flows-backlog.md) (13 atomic workflows + composite). All 13 workflow slugs are now published packages; keep the backlog for atomic-skill decomposition notes.
+Source catalog from [engram-demos](https://github.com/tryvinci/engram-demos): [`references/gtm-flows-backlog.md`](./references/gtm-flows-backlog.md) (14 atomic workflows + composite = 15 published packages). All workflow slugs below are live; keep the backlog for atomic-skill decomposition notes.
 
 ## Validate
 

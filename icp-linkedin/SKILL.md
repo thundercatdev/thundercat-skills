@@ -19,7 +19,7 @@ metadata:
         Qualified LinkedIn leads with context-rich hooks; hiring patterns surfaced as a leading indicator.
       duration_label: "~5 min"
       skill_count: 4
-      connectors: [LinkedIn, Sales Navigator, CRM, Apollo]
+      connectors: []
     activation:
       default_enabled: false
       requires_brand: true
@@ -73,7 +73,7 @@ metadata:
       template: >-
         Find "{{icp_description}}" accounts on LinkedIn over {{time_window}} focusing
         on {{signal_focus}}. Score firmographic fit with a concrete reason, dedupe
-        against CRM, and draft peer-style hooks that map the signal to the likely
+        against known pipeline in memory (state gap if CRM unavailable), and draft peer-style hooks that map the signal to the likely
         internal problem (e.g. hiring spike → context-transfer cost).
     eval:
       id: icp_linkedin
@@ -103,7 +103,7 @@ LinkedIn and Sales Nav signals with hiring as a leading indicator.
 
 ## Phase 2 — Dedupe & hook
 
-1. CRM suppress vs escalate.
+1. Dedupe against known pipeline in brand memory; state gap if CRM is not connected.
 2. Peer-style hooks per `references/hook-quality.md` — observation, not pitch.
 3. Emit **lead_table** + **hooks**.
 

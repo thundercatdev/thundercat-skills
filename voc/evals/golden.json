@@ -5,6 +5,19 @@
     "feedback_scope": "Support tickets + NPS",
     "time_window": "7d"
   },
-  "required_substrings": ["NPS", "theme", "quote"],
-  "required_artifacts": ["theme_table", "product_brief", "messaging_updates"]
+  "required_substrings": [
+    "NPS",
+    "value",
+    "recency",
+    "severity",
+    "theme",
+    "quote",
+    "customer language",
+    "replace"
+  ],
+  "required_artifacts": [
+    "theme_table",
+    "product_brief",
+    "messaging_updates"
+  ]
 }
