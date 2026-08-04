@@ -1,4 +1,4 @@
-# Perception accuracy (not ± sentiment)
+# Perception accuracy (not sentiment alone)
 
 Sentiment alone misses category error. Prefer:
 

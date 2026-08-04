@@ -13,7 +13,7 @@ metadata:
     title: Pre-call intelligence brief
     lane: sales
     status: live
-    version: 1.1.0
+    version: 1.1.1
     author: engram
     catalog:
       outcome: >-
@@ -71,7 +71,10 @@ metadata:
         Use enabled tools plus account notes: "{{account_notes}}". Synthesize
         relationship narrative (not a CRM dump), last-48h news/activity, stakeholder
         map for the internal sell path, and a concrete play with risks if the champion
-        cannot sell internally. State gaps when CRM is unavailable.
+        cannot sell internally. Fail closed: when Fathom, Gmail, memory, web, and
+        account_notes yield no evidence for a section (relationship, recent activity,
+        stakeholders, champion/play), mark that section "unknown/not found" — do not
+        invent CRM history or stakeholder maps.
     eval:
       id: pre_call
       required_substrings: [Northwind Labs, relationship, recent, stakeholder, play, champion]
@@ -95,13 +98,14 @@ Nobody walks in cold — narrative, not a data dump.
 
 ## Phases
 
-1. Synthesize relationship narrative from memory / Fathom / Gmail (and web research).
-   If CRM is not connected, state that gap — do not invent CRM history.
-2. Scan last-48h news and activity (prefer freshness).
-3. Map stakeholders who must be sold internally.
-4. Emit **pre_call_brief** with the play and landmines.
+1. Synthesize relationship narrative from memory / Fathom / Gmail / `account_notes` (and web research).
+   If sources are empty, mark relationship as unknown/not found — do not invent CRM history.
+2. Scan last-48h news and activity (prefer freshness); mark unknown when nothing found.
+3. Map stakeholders who must be sold internally; mark unknown when evidence is missing.
+4. Emit **pre_call_brief** with the play and landmines (or unknown/not found per section).
 
 ## Constraints
 
 - Narrative + play over bullet CRM dumps.
+- Fail closed: never fabricate relationship, recent activity, stakeholders, or champion play.
 - Flag risk if champion cannot sell internally.

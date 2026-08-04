@@ -2,7 +2,7 @@
 name: positioning
 description: >-
   Maintain a living positioning document from the gap between claimed positioning
-  and market language — perception accuracy, not ± sentiment. Use as the source of
+  and market language — perception accuracy, not sentiment alone. Use as the source of
   truth for downstream GTM. Do not use for competitor move triage (market-signals),
   VoC clustering into product briefs (voc), or channel drafts (content-*).
 metadata:
@@ -12,7 +12,7 @@ metadata:
     title: Positioning intelligence & brand sentiment
     lane: marketing
     status: live
-    version: 1.1.0
+    version: 1.1.1
     author: engram
     catalog:
       outcome: >-
@@ -69,9 +69,12 @@ metadata:
     prompt:
       template: >-
         Compare our claimed positioning "{{claimed_positioning}}" to how the market
-        describes us over {{time_window}}. Detect perception accuracy (e.g. love us
-        but wrong category), message-market fit gaps, and drift vs prior periods.
-        Update the living positioning document with claimed / heard / gap / updates.
+        describes us over {{time_window}} using only enabled tools (web_research,
+        memory, Notion, Fathom). Detect perception accuracy (e.g. love us but wrong
+        category), message-market fit gaps, and drift vs prior periods. When declared
+        sources yield no evidence, record an explicit evidence gap — do not invent
+        market language. Update the living positioning document with claimed / heard /
+        gap / updates.
     eval:
       id: positioning
       required_substrings: [GTM infrastructure, gap, perception]
@@ -94,13 +97,14 @@ Living positioning from the gap between what you say and what the market hears.
 
 ## Phase 1 — Gather language
 
-1. Pull market phrases (reviews, social, calls) for the window.
+1. Pull market phrases via enabled tools only (web_research, memory, Notion, Fathom).
 2. Score perception accuracy per `references/perception-accuracy.md`.
+3. If no evidence from declared sources, mark heard/gap as unknown — do not invent phrases.
 
 ## Phase 2 — Update the living doc
 
 1. Privacy review first: redact personal/sensitive data; keep only approved attribution.
-2. Message-market fit: claimed phrase vs heard phrase (Fathom + Notion + memory; state gap if CRM unavailable).
+2. Message-market fit: claimed phrase vs heard phrase from declared tools; state an evidence gap when sources are empty or disconnected.
 3. Drift vs prior periods — catch trend before crisis.
 4. Emit **positioning_doc** + **sentiment_table**.
 
@@ -109,3 +113,4 @@ Living positioning from the gap between what you say and what the market hears.
 - Prefer customer quotes over paraphrase.
 - Privacy: redact personal/sensitive data; keep only approved or consented attribution before persisting into positioning_doc or sentiment_table.
 - Emit structured gap analysis, not a mood score alone.
+- Fail closed: never fabricate market language when web/memory/Notion/Fathom yield nothing.

@@ -13,7 +13,7 @@ metadata:
     title: Voice of customer → GTM feedback loop
     lane: cross_functional
     status: live
-    version: 1.1.0
+    version: 1.1.1
     author: engram
     catalog:
       outcome: >-
@@ -87,10 +87,12 @@ metadata:
         Run a VoC loop for "{{feedback_scope}}" over {{time_window}}. Use enabled
         tools plus any pasted notes: "{{supplied_feedback}}". Cluster pains/features
         by value × recency × severity (not raw frequency). Anonymize customer
-        identities by default; keep verbatim quotes only after consent/visibility
-        check. Produce a PM-ready brief (top 3 themes, named-or-anonymized customers,
-        strongest quote); recommend homepage/messaging updates as current →
-        customer language → replace — never publish unapproved confidential quotes.
+        identities by default — name a customer only with explicit approved
+        attribution; keep verbatim quotes only after consent/visibility check.
+        Produce a PM-ready brief (top 3 themes, anonymized customers unless
+        attribution is approved, strongest quote); recommend homepage/messaging
+        updates as current → customer language → replace — never publish
+        unapproved confidential quotes.
     eval:
       id: voc
       required_substrings: [NPS, value, recency, severity, theme, quote, customer language, replace]
@@ -116,13 +118,14 @@ Customer words into marketing copy and product signal.
 1. Aggregate feedback from the configured scope via enabled tools (Slack/Fathom/Linear + web/memory).
    State gaps when Zendesk/NPS/G2/CRM are not connected — do not invent private tickets.
 2. Cluster per `references/cluster-weighting.md`.
-3. Extract verbatim customer language.
-4. PM brief: top 3 themes, named customers, strongest quote.
+3. Extract verbatim customer language (anonymized by default).
+4. PM brief: top 3 themes, anonymized customers (name only with approved attribution), strongest quote.
 5. Messaging update recommender.
 6. Emit **theme_table**, **product_brief**, **messaging_updates**.
 
 ## Constraints
 
 - Prefer verbatim quotes after anonymization / consent check; exclude unapproved PII.
+- Never name a customer without explicit approved attribution; default to anonymized labels.
 - When Zendesk/NPS/G2/CRM are not connected, use `supplied_feedback` or state the gap — do not invent tickets.
 - PM brief must be actionable in ~5 minutes.

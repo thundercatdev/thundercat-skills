@@ -19,7 +19,7 @@ Only skills listed in [`manifest.json`](./manifest.json) are published to Skill 
 
 | ID | Status | Lane | Notes |
 |----|--------|------|-------|
-| `competitive-intel-content-brief` | live | marketing | Composite of market-signals + content-linkedin (default enabled) |
+| `competitive-intel-content-brief` | live | marketing | Composite of market-signals + content-linkedin/content-x (default enabled) |
 | `icp-community` | live | marketing | Community / review ICP signals |
 | `icp-linkedin` | live | marketing | LinkedIn / hiring ICP signals |
 | `icp-developer` | live | marketing | HN / GitHub / PH ICP signals |

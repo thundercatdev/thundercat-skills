@@ -12,7 +12,7 @@ metadata:
     title: Customer onboarding context bridge
     lane: customer_success
     status: live
-    version: 1.1.0
+    version: 1.1.1
     author: engram
     catalog:
       outcome: >-
@@ -71,10 +71,12 @@ metadata:
     prompt:
       template: >-
         Build an onboarding handoff brief for {{account_name}} (closed {{close_date}}).
-        Capture rational and emotional reasons why bought (use close notes if provided:
-        "{{close_notes}}"); map stakeholders (sales champion vs daily user); state
-        success criteria in their words; list landmines (politics, failed prior tools,
-        skeptics).
+        Consult every enabled source (memory, Fathom, Gmail, Slack, Notion) plus close
+        notes if provided: "{{close_notes}}". Capture evidenced why-bought (rational +
+        emotional); map stakeholders (sales champion vs daily user); state success
+        criteria in their words; list landmines (politics, failed prior tools,
+        skeptics). When a field lacks evidence, return unavailable/unknown — do not
+        invent daily users, success criteria, or landmines.
     eval:
       id: onboarding_bridge
       required_substrings: [Northwind Labs, why bought, stakeholder, success criteria, landmine]
@@ -97,13 +99,14 @@ Zero context loss from sales → CS.
 
 ## Phases
 
-1. Pull close notes from memory / Fathom / Gmail / `close_notes` for why bought (rational + felt).
-   If CRM is not connected and close_notes is empty, state that gap — do not invent CRM close notes.
-2. Map stakeholders: sales champion vs daily users vs blockers.
-3. Extract success criteria in their language; list landmines.
+1. Pull why-bought evidence from memory / Fathom / Gmail / Slack / Notion / `close_notes`.
+   If sources are empty, mark why_bought unavailable/unknown — do not invent close notes.
+2. Map stakeholders: sales champion vs daily users vs blockers (unknown when not evidenced).
+3. Extract success criteria in their language; list landmines (or unavailable/unknown).
 4. Emit **onboarding_brief**.
 
 ## Constraints
 
-- Include landmines explicitly.
+- Include landmines explicitly when evidenced; otherwise mark unavailable/unknown.
+- Fail closed: never invent daily user, success criteria, or landmine details.
 - Keep brief scannable for a CS owner in one sitting.
