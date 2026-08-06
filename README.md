@@ -17,15 +17,29 @@ GTM skill packages for [Skill Hub](../../docs/skill-hub-v1.md). Each published s
 
 Only skills listed in [`manifest.json`](./manifest.json) are published to Skill Hub and synced into engram-chat.
 
-| ID | Status | Notes |
-|----|--------|-------|
-| `competitive-intel-content-brief` | live | Composite of market-signals + content-linkedin |
+| ID | Status | Lane | Notes |
+|----|--------|------|-------|
+| `competitive-intel-content-brief` | live | marketing | Composite of market-signals + content-linkedin/content-x (default enabled) |
+| `icp-community` | live | marketing | Community / review ICP signals |
+| `icp-linkedin` | live | marketing | LinkedIn / hiring ICP signals |
+| `icp-developer` | live | marketing | HN / GitHub / PH ICP signals |
+| `content-linkedin` | live | marketing | LinkedIn content engine |
+| `content-x` | live | marketing | X content engine |
+| `positioning` | live | marketing | Positioning + sentiment |
+| `market-signals` | live | marketing | Competitor signal intel |
+| `outbound` | live | sales | Personalized sequences |
+| `pre-call` | live | sales | Pre-call brief |
+| `pipeline` | live | sales | Deal scoring |
+| `launch` | live | sales | Launch orchestration |
+| `voc` | live | cross_functional | VoC → GTM loop |
+| `onboarding-bridge` | live | customer_success | Sales → CS handoff |
+| `renewal` | live | customer_success | Renewal / expansion intel |
 
 Draft packages may exist in this repo but stay hidden until added to `manifest.json`.
 
 ## Backlog
 
-Forward-looking migration catalog from [engram-demos](https://github.com/tryvinci/engram-demos): [`references/gtm-flows-backlog.md`](./references/gtm-flows-backlog.md) (13 workflows, ~55 atomic skills).
+Source catalog from [engram-demos](https://github.com/tryvinci/engram-demos): [`references/gtm-flows-backlog.md`](./references/gtm-flows-backlog.md) (14 atomic workflows + composite = 15 published packages). All workflow slugs below are live; keep the backlog for atomic-skill decomposition notes.
 
 ## Validate
 
@@ -52,3 +66,12 @@ Copies `manifest.json` + published skill dirs → `apps/engram-chat/skill_packag
 2. Run `python scripts/validate.py` (without manifest entry = draft only).
 3. Add to `manifest.json` → `published` when ready to ship.
 4. Re-run validate + sync script; dogfood via `/dashboard/skills`.
+
+## Bug notes (Skill Hub packages)
+
+| Bug | Frequency | Fix |
+|-----|-----------|-----|
+| Optional config (`communities`, `channels`, siblings) lacked `default` → blank `{{placeholders}}` omitted scan targets | First occurrence in GTM package review (Jul 2026) | Add representative string defaults |
+| Composite `competitive-intel-content-brief` omitted `battle_card` vs atomic `market-signals` | First occurrence in package review | Add artifact + eval/golden |
+| Outbound `sequence_length` unquoted YAML ints broke frontend `value.trim()` | First occurrence in package review | Quote YAML strings + coerce in `buildSkillPrompt` |
+| Launch `blog`/`email` channel vs always-`social_media_posts` drafts | First occurrence in package review | Channel-matched artifacts (`launch_drafts` / `launch_longform`) |

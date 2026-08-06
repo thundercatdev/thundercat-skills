@@ -1,0 +1,22 @@
+{
+  "id": "renewal",
+  "skill_id": "renewal",
+  "prompt_fixture": {
+    "account_name": "Northwind Labs",
+    "renewal_date": "2026-09-01"
+  },
+  "required_substrings": [
+    "Northwind Labs",
+    "health",
+    "usage",
+    "sentiment",
+    "expansion",
+    "churn",
+    "champion",
+    "play"
+  ],
+  "required_artifacts": [
+    "health_score",
+    "renewal_brief"
+  ]
+}

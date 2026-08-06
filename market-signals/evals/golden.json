@@ -1,0 +1,10 @@
+{
+  "id": "market_signals",
+  "skill_id": "market-signals",
+  "prompt_fixture": {
+    "competitor_name": "Acme Corp",
+    "time_window": "7d"
+  },
+  "required_substrings": ["Acme Corp", "P1", "reframe"],
+  "required_artifacts": ["signal_table", "battle_card"]
+}

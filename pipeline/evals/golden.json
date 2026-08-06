@@ -1,0 +1,10 @@
+{
+  "id": "pipeline",
+  "skill_id": "pipeline",
+  "prompt_fixture": {
+    "pipeline_scope": "Open opportunities > $20k",
+    "time_window": "7d"
+  },
+  "required_substrings": ["$20k", "champion", "action"],
+  "required_artifacts": ["ranked_pipeline", "next_actions"]
+}

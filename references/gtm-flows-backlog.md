@@ -3,7 +3,9 @@
 **Source:** [tryvinci/engram-demos](https://github.com/tryvinci/engram-demos) · `lib/skill-demos/gtm-flows.ts`  
 **Purpose:** Forward-looking catalog for Skill Hub package migration. Not published to the hub until each flow becomes a locked `SKILL.md` package in `manifest.json`.
 
-**Live today:** `competitive-intel-content-brief` (composite of `market-signals` + `content-linkedin`).
+**Live today:** All 14 workflow slugs below are published as Skill Hub packages (plus composite `competitive-intel-content-brief` = `market-signals` + `content-linkedin` / `content-x` → **15** packages in `manifest.json`). This file remains the atomic-skill decomposition reference.
+
+**Authoring bar (v1.1):** trigger-rich `description` with when-not-to-use routing; procedure bodies with phases/constraints (not atom-name lists); fixture-tied `evals/golden.json`; lean `references/` for rubrics that would bloat the body.
 
 ---
 
@@ -26,7 +28,7 @@
 | 8 | onboarding-bridge | Customer success | 3 | CRM, Fathom, Gmail, Slack, Notion |
 | 9 | renewal | Customer success | 3 | CRM, Mixpanel, Amplitude, Zendesk, Fathom, NPS/CSAT, Stripe |
 
-**Total:** 13 workflows · ~55 atomic skills
+**Total:** 14 workflows · ~55 atomic skills (+ 1 composite package in the hub)
 
 ---
 

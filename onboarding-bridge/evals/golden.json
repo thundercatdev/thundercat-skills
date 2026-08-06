@@ -1,0 +1,19 @@
+{
+  "id": "onboarding_bridge",
+  "skill_id": "onboarding-bridge",
+  "prompt_fixture": {
+    "account_name": "Northwind Labs",
+    "close_date": "2026-06-15",
+    "close_notes": "Bought to cut context loss between AE and CS; champion is Jordan."
+  },
+  "required_substrings": [
+    "Northwind Labs",
+    "why bought",
+    "stakeholder",
+    "success criteria",
+    "landmine"
+  ],
+  "required_artifacts": [
+    "onboarding_brief"
+  ]
+}

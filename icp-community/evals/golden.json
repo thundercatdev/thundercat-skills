@@ -1,0 +1,11 @@
+{
+  "id": "icp_community",
+  "skill_id": "icp-community",
+  "prompt_fixture": {
+    "icp_description": "B2B SaaS founders selling to mid-market ops teams",
+    "channels": "Reddit, Facebook Groups",
+    "time_window": "7d"
+  },
+  "required_substrings": ["mid-market ops", "hook", "intent"],
+  "required_artifacts": ["lead_table", "hooks"]
+}

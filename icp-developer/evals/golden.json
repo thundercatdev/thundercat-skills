@@ -1,0 +1,11 @@
+{
+  "id": "icp_developer",
+  "skill_id": "icp-developer",
+  "prompt_fixture": {
+    "icp_description": "B2B SaaS founders selling to mid-market ops teams",
+    "communities": "HN, GitHub, Product Hunt",
+    "time_window": "7d"
+  },
+  "required_substrings": ["mid-market ops", "hook", "GTM"],
+  "required_artifacts": ["lead_table", "hooks"]
+}
